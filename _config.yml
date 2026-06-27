@@ -18,6 +18,10 @@ tag_dir: tags
 archive_dir: archives
 category_dir: categories
 
+# Include dotfiles
+include:
+  - .nojekyll
+
 # Writing
 new_post_name: :title.md
 default_layout: post
