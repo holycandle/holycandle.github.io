@@ -1,0 +1,85 @@
+<!-- ── 首页 Hero ── -->
+<div class="content-home text-center">
+  <a class="avatar" href="<%= url_for('/') %>">
+    <img src="<%= url_for(theme.avatar) %>" alt="<%= config.author %>">
+  </a>
+  <h1 class="name" style="font-family: 'Calligraffitti', cursive;">
+    <%= theme.blog_name || config.title %>
+  </h1>
+  <% if (theme.slogan) { %>
+  <div class="slogan">
+    <%= theme.slogan %>
+  </div>
+  <% } %>
+
+  <hr>
+
+  <ul class="text-center nav">
+    <% var navEntries = Object.entries(theme.nav); %>
+    <% navEntries.forEach(function(item, index) { %>
+      <li class="item">
+        <a href="<%= item[1] %>" <%- item[1].startsWith('http') ? 'target="_blank" rel="noopener"' : '' %>><%= item[0] %></a>
+        <span>|</span>
+      </li>
+    <% }); %>
+  </ul>
+</div>
+
+<!-- ── 最近文章 ── -->
+<div class="content-home-recent">
+  <h2 class="recent-posts-title">最近文章</h2>
+
+  <ul class="list-post list-post-rich timeline-list">
+    <%
+      var posts = site.posts.sort('date', -1);
+      var shownYear = null;
+      var yearColors = ['item-title-1', 'item-title-2', 'item-title-3', 'item-title-4', 'item-title-0'];
+      var colorIdx = 0;
+      var count = 0;
+      var maxPosts = 15;
+
+      posts.forEach(function(post) {
+        if (count >= maxPosts) return;
+        count++;
+
+        var postYear = post.date.year();
+        if (postYear !== shownYear) {
+          shownYear = postYear;
+          var colorClass = yearColors[colorIdx % yearColors.length];
+          colorIdx++;
+    %>
+      <li class="item-year item item-title <%= colorClass %>">
+        <a href="<%= url_for('/archives/' + postYear) %>" class="text-year">
+          <%= postYear %>
+        </a>
+      </li>
+    <% } %>
+
+      <li class="item-post-rich item">
+        <div class="post-row">
+          <time class="post-date" datetime="<%= post.date.format('YYYY-MM-DD') %>">
+            <%= post.date.format('MM-DD') %>
+          </time>
+          <div class="post-body">
+            <a class="post-title" href="<%= url_for(post.path) %>"><%= post.title %></a>
+            <% if (post.tags && post.tags.length) { %>
+            <span class="post-tags">
+              <% post.tags.each(function(tag) { %>
+                <a class="post-tag" href="<%= url_for(tag.path) %>"><%= tag.name.replace(/^#/, '') %></a>
+              <% }); %>
+            </span>
+            <% } %>
+            <% var postExcerpt = post.excerpt || strip_html(post.content).substring(0, 200); %>
+            <% if (postExcerpt && postExcerpt.trim()) { %>
+            <p class="post-excerpt"><%= postExcerpt.trim() %>...</p>
+            <% } %>
+          </div>
+        </div>
+      </li>
+    <% }); %>
+  </ul>
+
+  <p class="recent-posts-more">
+    <a href="<%= url_for('/archives') %>">查看全部 →</a>
+  </p>
+</div>

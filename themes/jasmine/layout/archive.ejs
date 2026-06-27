@@ -1,0 +1,96 @@
+<!-- ── 博客归档页 — 完全复刻 BlueSun ── -->
+<span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+
+<div class="content content-archive">
+  <div class="page-header">
+
+    <!-- 面包屑 -->
+    <div class="breadcrumb">
+      <div class="location">博客</div>
+      <i class="icon-location"></i>
+    </div>
+
+    <!-- 导航 -->
+    <div class="toolbox">
+      <a class="toolbox-entry" href="<%= url_for('/') %>">
+        <span class="toolbox-entry-text">盒子</span>
+        <i class="icon-angle-down">▾</i>
+        <span class="icon-home-text"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
+        <span class="toolbox-entry-home-text">主页</span>
+      </a>
+      <ul class="list-toolbox">
+        <% for (var name in theme.nav) { %>
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="<%= theme.nav[name] %>" <%- theme.nav[name].startsWith('http') ? 'target="_blank" rel="noopener"' : '' %>>
+            <%= name %>
+          </a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+
+    <!-- 博客信息 -->
+    <div class="box-blog-info">
+      <a class="avatar" href="<%= url_for('/') %>">
+        <img src="<%= url_for(theme.avatar) %>" alt="<%= config.author %>">
+      </a>
+      <div class="info">
+        <div class="name"><%= theme.blog_name || config.title %></div>
+        <% if (theme.slogan) { %>
+        <div class="slogan"><%= theme.slogan %></div>
+        <% } %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="post-list-box archive-body">
+    <ul class="list-post list-post-rich">
+      <%
+        var shownYear = null;
+        var yearColors = ['item-title-1', 'item-title-2', 'item-title-3', 'item-title-4', 'item-title-0'];
+        var colorIdx = 0;
+
+        site.posts.sort('date', -1).forEach(function(post) {
+          var postYear = post.date.year();
+          if (postYear !== shownYear) {
+            shownYear = postYear;
+            var colorClass = yearColors[colorIdx % yearColors.length];
+            colorIdx++;
+      %>
+        <li class="item-year item item-title <%= colorClass %>">
+          <a href="<%= url_for('/archives/' + postYear) %>" class="text-year">
+            <%= postYear %>
+          </a>
+        </li>
+      <% } %>
+
+        <li class="item-post-rich item">
+          <div class="post-row">
+            <time class="post-date" datetime="<%= post.date.format('YYYY-MM-DD') %>">
+              <%= post.date.format('MM-DD') %>
+            </time>
+            <div class="post-body">
+              <a class="post-title" href="<%= url_for(post.path) %>"><%= post.title %></a>
+              <% if (post.tags && post.tags.length) { %>
+              <span class="post-tags">
+                <% post.tags.each(function(tag) { %>
+                  <a class="post-tag" href="<%= url_for(tag.path) %>"><%= tag.name.replace(/^#/, '') %></a>
+                <% }); %>
+              </span>
+              <% } %>
+              <% if (post.excerpt) { %>
+              <p class="post-excerpt"><%= strip_html(post.excerpt).substring(0, 180) %>...</p>
+              <% } %>
+            </div>
+          </div>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+
+  <div class="archive-footer">
+  </div>
+</div>
+
+<a id="backTop" class="back-top show" title="回到顶部">▲</a>

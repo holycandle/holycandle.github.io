@@ -1,0 +1,32 @@
+# Jasmine Theme — for Horizon & Jasmine
+# 基于 BlueSun (huang-jerryc.com) 设计风格
+
+avatar: \images\profile.jpg
+blog_name: Horizon & Jasmine
+slogan: 码上见性，屏前忘机
+
+# 导航链接
+nav:
+  Blog: /archives
+  分类: /categories
+  标签: /tags
+  关于: /about
+
+# Giscus
+giscus:
+  enable: true
+  repo: holycandle/holycandle.github.io
+  repo_id: 'R_kgDOTGE5Gg'
+  category: Announcements
+  category_id: 'DIC_kwDOTGE5Gs4C_8dE'
+  mapping: pathname
+  strict: '0'
+  reactions_enabled: '1'
+  emit_metadata: '0'
+  input_position: bottom
+  theme: preferred_color_scheme
+  lang: zh-CN
+
+# 文章数量显示
+index_generator:
+  per_page: 10

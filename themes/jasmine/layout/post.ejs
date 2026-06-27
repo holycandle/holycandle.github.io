@@ -1,0 +1,204 @@
+<%
+  // Helper: group TOC items by H2/H3 level
+  function renderTOC(toc) {
+    if (!toc || toc.length === 0) return '';
+    var html = '<ol class="toc">';
+    toc.forEach(function(item) {
+      html += '<li class="toc-item toc-level-' + item.level + '">';
+      html += '<a class="toc-link" href="#' + item.id + '">';
+      html += '<span class="toc-text">' + item.text + '</span>';
+      html += '</a>';
+      // Recursively render children (H3 under H2)
+      html += '</li>';
+    });
+    html += '</ol>';
+    return html;
+  }
+%>
+
+<!-- ── 移动端底部导航按钮 ── -->
+<span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+
+<!-- ── 右侧边栏：盒子导航 + 文章目录 ── -->
+<aside class="post-sidebar">
+  <div class="toolbox post-toolbox">
+    <a class="toolbox-entry" href="<%= url_for('/') %>">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down">▾</i>
+      <span class="icon-home-text"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
+    </a>
+    <ul class="list-toolbox">
+      <% for (var name in theme.nav) { %>
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="<%= theme.nav[name] %>" <%- theme.nav[name].startsWith('http') ? 'target="_blank" rel="noopener"' : '' %>>
+          <%= name %>
+        </a>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+  <%
+    var tocHtml = toc(page.content);
+    if (tocHtml && tocHtml.trim()) {
+  %>
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <%- tocHtml %>
+  </div>
+  <% } %>
+</aside>
+
+<!-- ── 文章内容区 ── -->
+<div class="content content-post CENTER">
+  <article id="post-<%= page.slug %>" class="article" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="article-header">
+      <h1 class="post-title"><%= page.title %></h1>
+
+      <div class="article-meta">
+        <span class="meta-item">
+          <i class="meta-icon">&#x1F4C5;</i>
+          <span><%= page.date.format('YYYY.MM.DD') %></span>
+        </span>
+
+        <% var displayAuthor = page.author || config.author; %>
+        <% if (displayAuthor) { %>
+        <span class="meta-sep">·</span>
+        <span class="meta-item">
+          <i class="meta-icon">&#x270D;</i>
+          <span><%= displayAuthor %></span>
+        </span>
+        <% } %>
+
+        <% if (page.categories && page.categories.length > 0) { %>
+        <span class="meta-sep">·</span>
+        <span class="meta-item">
+          <i class="meta-icon">&#x1F4C2;</i>
+          <% page.categories.each(function(cat) { %>
+          <a class="article-category-link" href="<%= url_for(cat.path) %>"><%= cat.name %></a><% if (page.categories.last().name !== cat.name) { %>, <% } %>
+          <% }); %>
+        </span>
+        <% } %>
+      </div>
+
+      <% if (page.tags && page.tags.length > 0) { %>
+      <div class="article-tags">
+        <% page.tags.each(function(tag) { %>
+        <a class="article-tag" href="<%= url_for(tag.path) %>"><%= tag.name.replace(/^#/, '') %></a>
+        <% }); %>
+      </div>
+      <% } %>
+    </header>
+
+    <div class="article-content">
+      <%- page.content %>
+    </div>
+
+  </article>
+
+  <!-- ── 上一篇 / 下一篇 ── -->
+  <div class="box-prev-next clearfix">
+    <% if (page.prev) { %>
+    <a class="show pull-left" href="<%= url_for(page.prev.path) %>" title="<%= page.prev.title %>">
+      ◀
+    </a>
+    <% } else { %>
+    <a class="hide pull-left">◀</a>
+    <% } %>
+    <% if (page.next) { %>
+    <a class="show pull-right" href="<%= url_for(page.next.path) %>" title="<%= page.next.title %>">
+      ▶
+    </a>
+    <% } else { %>
+    <a class="hide pull-right">▶</a>
+    <% } %>
+  </div>
+
+</div>
+
+<!-- ── 将侧边栏与正文内容对齐 ── -->
+<script>
+(function() {
+  var sidebar = document.querySelector('.post-sidebar');
+  var articleContent = document.querySelector('.article-content');
+  if (sidebar && articleContent) {
+    var top = articleContent.getBoundingClientRect().top + window.scrollY;
+    sidebar.style.top = top + 'px';
+  }
+})();
+</script>
+
+<!-- ── Giscus 评论区 ── -->
+<% if (theme.giscus && theme.giscus.enable && theme.giscus.repo_id) { %>
+<div class="fexo-comments comments-post">
+  <section class="giscus-comments">
+    <script src="https://giscus.app/client.js"
+      data-repo="<%= theme.giscus.repo %>"
+      data-repo-id="<%= theme.giscus.repo_id %>"
+      data-category="<%= theme.giscus.category %>"
+      data-category-id="<%= theme.giscus.category_id %>"
+      data-mapping="<%= theme.giscus.mapping || 'pathname' %>"
+      data-strict="<%= theme.giscus.strict || '0' %>"
+      data-reactions-enabled="<%= theme.giscus.reactions_enabled || '1' %>"
+      data-emit-metadata="<%= theme.giscus.emit_metadata || '0' %>"
+      data-input-position="<%= theme.giscus.input_position || 'bottom' %>"
+      data-theme="<%= theme.giscus.theme || 'preferred_color_scheme' %>"
+      data-lang="<%= theme.giscus.lang || 'zh-CN' %>"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+</div>
+<% } %>
+
+<!-- ── TOC scroll-spy ── -->
+<script>
+(function() {
+  var toc = document.getElementById('toc');
+  if (!toc) return;
+
+  var tocTopOrigin = toc.getBoundingClientRect().top + window.scrollY;
+  var tocLinks = toc.querySelectorAll('.toc-link');
+  var headings = [];
+  tocLinks.forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      var el = document.getElementById(href.slice(1));
+      if (el) headings.push({ el: el, link: link });
+    }
+  });
+  if (!headings.length) return;
+
+  function onScroll() {
+    // Fix/unfix TOC
+    if (window.scrollY > tocTopOrigin) {
+      toc.classList.add('fixed');
+    } else {
+      toc.classList.remove('fixed');
+    }
+
+    // Active heading detection
+    var active = null;
+    for (var i = 0; i < headings.length; i++) {
+      var top = headings[i].el.getBoundingClientRect().top;
+      if (top < 120) {
+        active = headings[i];
+      } else {
+        break;
+      }
+    }
+    if (!active && headings.length) active = headings[0];
+
+    tocLinks.forEach(function(l) { l.classList.remove('active'); });
+    if (active) active.link.classList.add('active');
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+<!-- ── 回到顶部 ── -->
+<a id="backTop" class="back-top show" title="回到顶部">
+  ▲
+</a>
