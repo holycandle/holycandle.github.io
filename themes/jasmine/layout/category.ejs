@@ -45,7 +45,7 @@
     <div class="category-title">分类</div>
     <div class="category-list">
       <% site.categories.each(function(cat) { %>
-        <a class="category-item" href="<%= url_for(cat.path) %>">
+        <a class="category-item" href="#<%= encodeURIComponent(cat.name) %>">
           <span class="category-name"><%= cat.name %></span>
           <span class="category-size">( <%= cat.posts.length %> )</span>
         </a>
@@ -68,5 +68,17 @@
     <% }); %>
   </ul>
 </div>
+
+<script>
+(function() {
+  if (window.location.hash) {
+    var id = decodeURIComponent(window.location.hash.slice(1));
+    var el = document.getElementById(id);
+    if (el) {
+      setTimeout(function() { el.scrollIntoView({ behavior: 'smooth' }); }, 100);
+    }
+  }
+})();
+</script>
 
 <a id="backTop" class="back-top show" title="回到顶部">▲</a>

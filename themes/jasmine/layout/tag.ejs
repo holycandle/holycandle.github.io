@@ -49,7 +49,7 @@
     <div class="tag-title">标签</div>
     <div class="tag-list">
       <% site.tags.each(function(tag) { %>
-        <a class="tag-item" href="<%= url_for(tag.path) %>">
+        <a class="tag-item" href="#<%= encodeURIComponent(tag.name.replace(/^#/, '')) %>">
           <span class="tag-name"><%= tag.name.replace(/^#/, '') %></span>
           <span class="tag-size">( <%= tag.posts.length %> )</span>
         </a>
@@ -73,5 +73,17 @@
     <% }); %>
   </ul>
 </div>
+
+<script>
+(function() {
+  if (window.location.hash) {
+    var id = decodeURIComponent(window.location.hash.slice(1));
+    var el = document.getElementById(id);
+    if (el) {
+      setTimeout(function() { el.scrollIntoView({ behavior: 'smooth' }); }, 100);
+    }
+  }
+})();
+</script>
 
 <a id="backTop" class="back-top show" title="回到顶部">▲</a>

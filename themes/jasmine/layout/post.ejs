@@ -75,7 +75,7 @@
         <span class="meta-item">
           <i class="meta-icon">&#x1F4C2;</i>
           <% page.categories.each(function(cat) { %>
-          <a class="article-category-link" href="<%= url_for(cat.path) %>"><%= cat.name %></a><% if (page.categories.last().name !== cat.name) { %>, <% } %>
+          <a class="article-category-link" href="/categories/#<%= encodeURIComponent(cat.name) %>"><%= cat.name %></a><% if (page.categories.last().name !== cat.name) { %>, <% } %>
           <% }); %>
         </span>
         <% } %>
@@ -84,7 +84,7 @@
       <% if (page.tags && page.tags.length > 0) { %>
       <div class="article-tags">
         <% page.tags.each(function(tag) { %>
-        <a class="article-tag" href="<%= url_for(tag.path) %>"><%= tag.name.replace(/^#/, '') %></a>
+        <a class="article-tag" href="/tags/#<%= encodeURIComponent(tag.name.replace(/^#/, '')) %>"><%= tag.name.replace(/^#/, '') %></a>
         <% }); %>
       </div>
       <% } %>
