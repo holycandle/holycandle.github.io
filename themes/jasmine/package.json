@@ -1,0 +1,10 @@
+{
+  "name": "hexo-theme-jasmine",
+  "version": "1.0.0",
+  "description": "Jasmine — 基于 BlueSun 设计的 Hexo 主题",
+  "author": "Horizon",
+  "license": "MIT",
+  "hexo": {
+    "version": ">=7.0.0"
+  }
+}
