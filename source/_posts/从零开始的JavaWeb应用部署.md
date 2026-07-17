@@ -10,9 +10,9 @@ tags:
 categories:
   - 栈记
 ---
-> 部署 JavaWeb 项目后的一些梳理与思考
+> 对JavaWeb应用部署的梳理、思考以及对部署“祛魅”过程记录
 
-## 前言
+## 一、前言
 
 写完最后一段代码，手上的 Web 应用总算能给人看了。可问题来了——要怎么让别人看到？
 
@@ -37,13 +37,13 @@ categories:
 1. 如何控制不在眼前的服务器？
 2. 如何在服务器上运行我们的服务（服务器常用 **Linux 系统**）？
 
-## 虚拟机练习
+## 二、虚拟机练习
 
 不妨先用**虚拟机**模拟远程服务器，零成本练手。
 
-### 搭建环境
+### （一） 搭建环境
 
-#### 配置 WSL
+#### 1. 配置 WSL
 
 常见的选择是 **VMware**，功能全面但较为笨重。这里推荐使用 Windows 自带的 **WSL（Windows Subsystem for Linux）**。
 1. **以管理员身份打开 PowerShell**，依次输入：
@@ -63,7 +63,7 @@ Restart-Computer
 wsl --set-default-version 2
 ```
 
-#### 安装 Ubuntu
+#### 2. 安装 Ubuntu
 
 Ubuntu 是一个流行的 Linux 发行版，在 PowerShell 中直接执行：
 ```powershell
@@ -77,7 +77,7 @@ New password: 输入密码（不显示）
 Retype new password: 确认密码
 ```
 
-### 远程连接
+### （二）远程连接
 
 现实中的服务器往往在千里之外，我们只知道一个 IP，无法直接操作。这时需要**远程连接**工具，将指令传输到远程服务器中。
 
@@ -85,7 +85,7 @@ Retype new password: 确认密码
 
 当然，更经典的做法是通过 **XShell**、**FinalShell** 等工具远程连接，后面连接云服务器时也会用到。但 WSL 默认没有 **SSH** 服务器的服务，需要自行安装`openssh-server`。
 
-### 学习 Linux
+### （三）学习 Linux
 
 关于 Linux 的学习，网上有很多教程：
 - [Linux 教程 | 菜鸟教程](https://www.runoob.com/linux/linux-tutorial.html)
@@ -94,11 +94,11 @@ Retype new password: 确认密码
 
 实际上不需要特别深入，部署只需了解**基本指令和目录结构**即可，在实战中会慢慢熟悉。
 
-### 部署
+### （四）部署
 
 基本掌握 Linux 后，就开始部署吧！流程其实很简单：将前后端项目分别**打包**，再分别启动，让服务器持续运行即可。我们只需要把 Windows 上启动项目的流程，用 Linux 的方式走一遍。
 
-#### 安装依赖
+#### 1. 安装依赖
 
 先根据项目文档安装所有依赖。Linux 强大的**包管理器**让我们通过指令即可下载软件并自动配置相关环境变量。
 ```bash
@@ -125,31 +125,31 @@ sudo systemctl enable docker
 sudo usermod -aG docker $USER
 ```
 
-#### 后端部署
+#### 2. 后端部署
 
 直接执行 `mvn spring-boot:run` 可以启动后端，但只适合开发环境，在生产服务器上性能不佳。经典做法是打包成 jar 文件托管。
 
-##### 打包
+##### （1）打包
 
 Maven 负责 Spring Boot 项目的**生命周期**。在项目目录下执行 `mvn clean package`，会在 `target` 目录下生成一个**可执行的 Fat Jar** `app.jar`。这是 Java 项目的打包文件，包含所有编译好的 Class 和依赖，启动速度快，资源占用少。
 
-![[Pasted image 20260717181411.png]]
+![](/images/javaweb-maven-package.png)
 
-##### 启动
+##### （2）启动
 
 通过**远程连接**工具将 jar 包传输到服务器上合适的位置，执行 `java -jar app.jar` 启动。若 8080 端口被监听，则后端部署成功。
 
-#### 前端部署
+#### 3. 前端部署
 
 前端的部署稍麻烦一些。开发环境中，`npm run dev` 启动的是一个**开发服务器（Dev Server）**，代码未压缩，可以实时编译，但体积巨大。经典做法是打包编译成纯静态文件（压缩后的 `.js` 和 `.css`），然后交给 **Nginx** 这样的专业静态服务器托管。
 
-##### 打包
+##### （1）打包
 
 在 Windows 执行 `npm run build`，`dist` 文件夹就是打包产物。
 
-![[Pasted image 20260717183221.png]]
+![](/images/javaweb-dist.png)
 
-##### 配置 Nginx
+##### （2）配置 Nginx
 
 **Nginx** 是一款轻量级的**反向代理服务器**，内存占用少、并发能力强。所谓**反向代理**，即服务端的"代理人"：当用户从外网发来请求时，Nginx 统一接收，根据**配置规则**（如请求路径以 `/api/` 开头）转发至实际处理业务的服务器（如 Spring Boot 后端），并取回结果。整个过程对外界完全透明，用户只知道自己在和 Nginx 通信，感受不到背后真实服务器的存在，以此避免跨域、实现安全隔离。此外 Nginx 的**智能调度**还能均衡负载、加速缓存。
 
@@ -166,7 +166,7 @@ Maven 负责 Spring Boot 项目的**生命周期**。在项目目录下执行 `m
 | **访问日志** | `/var/log/nginx/access.log` |
 | **错误日志** | `/var/log/nginx/error.log` |
 
-###### 静态资源
+###### A.静态资源
 
 通过远程连接工具将打包好的 `dist` 文件夹传输到合适位置，例如 `/root/projects/frontend/dist/`，然后通过软链接配置静态资源：
 ```bash
@@ -176,7 +176,7 @@ sudo rm -rf /var/www/html
 sudo ln -s /root/projects/frontend/dist/ /var/www/html
 ```
 
-###### 配置规则
+###### B.配置规则
 
 Nginx 的**站点配置文件**都放在 `/etc/nginx/sites-available/` 下，真正启用的配置则在 `/etc/nginx/sites-enabled/` 下，通过软链接关联：
 ```bash
@@ -188,7 +188,7 @@ ln -s /etc/nginx/sites-available/app.conf app.conf
 ```
 `app.conf` 的具体配置内容可根据项目实际情况让 AI 协助编写，主要涉及不同请求路径的处理规则。可用 `nginx -t` 检查配置文件语法是否正确。
 
-##### 启动
+##### （3）启动
 
 **systemd** 是 Linux 的**系统和服务管理器**，专门管理系统中运行的各种"服务"（如 Nginx、MySQL、SSH 等）。执行 `systemctl start nginx` 即可启动 Nginx 服务器，默认占用 `80` 端口。
 
@@ -204,20 +204,20 @@ Nginx 常用指令：
 
 现在，访问 `localhost:80` 即可看到应用。
 
-## 云服务器部署
+## 三、云服务器部署
 
 **云服务器（Elastic Compute Service, ECS）** 比物理服务器更简单高效，无需提前购买昂贵硬件，即可快速创建或删除。购买云服务器时会附赠**公网 IP**。国内可在 [阿里云](https://www.aliyun.com)、[腾讯云](https://cloud.tencent.com) 和 [京东云](https://www.jdcloud.com) 等平台购买。
 
 云服务器不像 WSL 那样可以集成到 VSCode 中，其余流程则大同小异。下面主要介绍远程连接。
 
-### 远程连接
+### （一）远程连接
 
 在 [XSHELL](https://www.xshell.com/zh/xshell/) 下载 XShell，用于远程命令行操作；在 [XFTP](https://www.xshell.com/zh/xftp/) 下载 XFTP，用于可视化文件传输。
 
-> 不得不提的是，我一开始用的是 **FinalShell**（[FinalShell 官网](https://www.hostbuf.com/)），搜索时误入了几个假官网，下载了带木马的挖矿病毒，一下午 CPU 直接被干烧，最后靠 agent 排毒才力挽狂澜。这类网站通常比真官网还精美，极具迷惑性。
+> 这里不得不提，我一开始用的是 **FinalShell**（[FinalShell 官网](https://www.hostbuf.com/)），搜索时误入了几个假官网，下载了带木马的挖矿病毒，一下午 CPU 被干烧了，最后靠 agent 排毒才力挽狂澜。这类网站通常比真官网还精美，极具迷惑性。
 
 注册账号并进入 XShell 后，新建会话，主机填入服务器的**公网 IP**，确定后输入服务器的账号密码即可远程连接。XFTP 同理。
 
-![[Pasted image 20260717221948.png]]
+![](/images/javaweb-xshell.png)
 
 最后，只需把之前在虚拟机上完成的部署流程，在 XShell 和 XFTP 上重新走一遍即可。

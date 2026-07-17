@@ -646,7 +646,7 @@ hr {
 }
 
 /* ═══════════════════════════════════════════
-   TOC (Table of Contents)
+   TOC (Table of Contents) — Collapsible Tree
    ═══════════════════════════════════════════ */
 
 .toc-article {
@@ -669,19 +669,39 @@ hr {
   display: block;
 }
 
-.toc-article ol.toc {
-  padding-left: 10px;
+.toc-article ol.toc,
+.toc-article ol.toc-children {
+  padding-left: 0;
   list-style: none;
   line-height: 1.8;
 }
 
+.toc-article ol.toc-children {
+  padding-left: 12px;
+  overflow: hidden;
+  transition: max-height 0.25s ease, opacity 0.2s ease;
+}
+
+.toc-article ol.toc-children.collapsed {
+  max-height: 0 !important;
+  opacity: 0;
+}
+
 .toc-article .toc-item {
-  margin: 4px 0;
+  margin: 2px 0;
+  position: relative;
+  max-width: 168px;
 }
 
 .toc-article .toc-link {
   color: #888;
   transition: color 0.2s;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
 .toc-article .toc-link:hover {
@@ -691,6 +711,37 @@ hr {
 .toc-article .toc-link.active {
   color: #111;
   font-weight: bold;
+}
+
+/* Toggle button */
+.toc-article .toc-toggle {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  font-size: 10px;
+  cursor: pointer;
+  color: #bbb;
+  margin-right: 2px;
+  vertical-align: middle;
+  user-select: none;
+  transition: transform 0.2s ease, color 0.2s;
+  flex-shrink: 0;
+}
+
+.toc-article .toc-toggle:hover {
+  color: #666;
+}
+
+.toc-article .toc-toggle.collapsed {
+  transform: rotate(-90deg);
+}
+
+/* Item wrapper for toggle + link alignment */
+.toc-article .toc-item-inner {
+  display: flex;
+  align-items: baseline;
 }
 
 @media screen and (max-width: 1023px) {
@@ -893,6 +944,24 @@ hr {
   background: #f7f7f7;
   color: #e96900;
   font-size: 0.88em;
+  word-break: break-word;
+}
+
+/* Hexo highlight figures */
+.article-content figure.highlight {
+  margin: 1.5em 0;
+}
+
+.article-content figure.highlight table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.article-content figure.highlight table tbody,
+.article-content figure.highlight table tr,
+.article-content figure.highlight table td.code {
+  display: block;
 }
 
 .article-content pre {
@@ -906,12 +975,48 @@ hr {
   line-height: 1.5;
 }
 
+.article-content figure.highlight pre {
+  margin: 0;
+  padding: 16px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
 .article-content pre code {
   padding: 0;
   color: inherit;
   background: transparent;
   font-size: 0.9em;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
+
+/* ── Syntax Highlighting ── */
+.article-content figure.highlight .comment,
+.article-content figure.highlight .quote { color: #8b949e; font-style: italic; }
+.article-content figure.highlight .keyword { color: #cf222e; font-weight: bold; }
+.article-content figure.highlight .built_in { color: #6f42c1; }
+.article-content figure.highlight .literal,
+.article-content figure.highlight .string { color: #0a3069; }
+.article-content figure.highlight .number { color: #0550ae; }
+.article-content figure.highlight .variable,
+.article-content figure.highlight .params { color: #e36209; }
+.article-content figure.highlight .function,
+.article-content figure.highlight .title { color: #6f42c1; }
+.article-content figure.highlight .attr,
+.article-content figure.highlight .attribute { color: #0550ae; }
+.article-content figure.highlight .symbol,
+.article-content figure.highlight .meta { color: #cf222e; }
+.article-content figure.highlight .type { color: #8250df; }
+.article-content figure.highlight .selector-tag,
+.article-content figure.highlight .selector-class { color: #0550ae; }
+.article-content figure.highlight .regexp { color: #0a3069; }
+.article-content figure.highlight .deletion { color: #cf222e; background: #ffebe9; }
+.article-content figure.highlight .addition { color: #1a7f37; background: #dafbe1; }
 
 /* ── Blockquote ── */
 .article-content blockquote {

@@ -49,6 +49,138 @@
 </aside>
 
 <!-- ── 文章内容区 ── -->
+
+<!-- ═══════════════════════════════════════════
+   TOC: 将 Hexo 扁平 TOC 重建为可折叠树
+   ═══════════════════════════════════════════ -->
+<script>
+(function() {
+  var toc = document.getElementById('toc');
+  if (!toc) return;
+
+  var flatOl = toc.querySelector('ol.toc');
+  if (!flatOl) return;
+
+  // 1. 解析扁平 TOC，构建层级树
+  var flatItems = Array.from(flatOl.querySelectorAll('li.toc-item'));
+  if (!flatItems.length) return;
+
+  function getLevel(li) {
+    var match = (li.className || '').match(/toc-level-(\d+)/);
+    return match ? parseInt(match[1], 10) : 2;
+  }
+
+  // 构建树节点 { level, link, text, children }
+  var root = { level: 1, children: [] };
+  var stack = [root];  // 祖先链，stack[stack.length-1] 是当前父节点
+
+  flatItems.forEach(function(li) {
+    var level = getLevel(li);
+    var link = li.querySelector('a.toc-link');
+    var href = link ? link.getAttribute('href') : '';
+    var text = link ? (link.querySelector('.toc-text') ? link.querySelector('.toc-text').textContent : link.textContent) : '';
+
+    var node = { level: level, href: href, text: text, children: [] };
+
+    // 找到父节点：向上找 stack 中 level < node.level 的最近节点
+    while (stack.length > 1 && stack[stack.length - 1].level >= level) {
+      stack.pop();
+    }
+    var parent = stack[stack.length - 1];
+    parent.children.push(node);
+    stack.push(node);
+  });
+
+  // 2. 从树构建 DOM
+  function buildOl(children, parentLevel) {
+    if (!children.length) return null;
+    var ol = document.createElement('ol');
+    ol.className = 'toc-children';
+    children.forEach(function(node) {
+      var li = document.createElement('li');
+      li.className = 'toc-item toc-level-' + node.level;
+
+      var inner = document.createElement('div');
+      inner.className = 'toc-item-inner';
+
+      var hasChildren = node.children.length > 0;
+
+      // Toggle 按钮（仅对有子项的节点）
+      if (hasChildren) {
+        var toggle = document.createElement('span');
+        toggle.className = 'toc-toggle';
+        toggle.textContent = '▾';
+        toggle.setAttribute('aria-expanded', 'true');
+        inner.appendChild(toggle);
+      } else {
+        // 占位，保持对齐
+        var spacer = document.createElement('span');
+        spacer.className = 'toc-toggle';
+        spacer.style.cssText = 'visibility:hidden;';
+        inner.appendChild(spacer);
+      }
+
+      var a = document.createElement('a');
+      a.className = 'toc-link';
+      a.href = node.href;
+      a.textContent = node.text;
+      inner.appendChild(a);
+      li.appendChild(inner);
+
+      // 递归构建子级
+      var childOl = buildOl(node.children, node.level);
+      if (childOl) {
+        li.appendChild(childOl);
+      }
+
+      ol.appendChild(li);
+    });
+    return ol;
+  }
+
+  var newOl = buildOl(root.children, 1);
+
+  // 3. 替换扁平 TOC
+  if (newOl) {
+    newOl.classList.add('toc');
+    flatOl.parentNode.replaceChild(newOl, flatOl);
+
+    // 4. 绑定折叠事件
+    newOl.addEventListener('click', function(e) {
+      var toggle = e.target.closest('.toc-toggle');
+      if (!toggle) return;
+      var li = toggle.closest('.toc-item');
+      if (!li) return;
+      var childOl = li.querySelector(':scope > ol.toc-children');
+      if (!childOl) return;
+
+      var isCollapsed = childOl.classList.contains('collapsed');
+      if (isCollapsed) {
+        childOl.classList.remove('collapsed');
+        childOl.style.maxHeight = childOl.scrollHeight + 'px';
+        toggle.classList.remove('collapsed');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.textContent = '▾';
+      } else {
+        childOl.style.maxHeight = childOl.scrollHeight + 'px';
+        // 强制回流后设置
+        childOl.offsetHeight;
+        childOl.classList.add('collapsed');
+        childOl.style.maxHeight = '0px';
+        toggle.classList.add('collapsed');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = '▸';
+      }
+    });
+
+    // 初始化：所有展开
+    var allChildren = newOl.querySelectorAll('ol.toc-children');
+    allChildren.forEach(function(ol) {
+      ol.style.maxHeight = ol.scrollHeight + 'px';
+    });
+  }
+})();
+</script>
 <div class="content content-post CENTER">
   <article id="post-<%= page.slug %>" class="article" itemscope itemtype="http://schema.org/BlogPosting">
 
