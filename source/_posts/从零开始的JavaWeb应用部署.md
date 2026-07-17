@@ -10,7 +10,7 @@ tags:
 categories:
   - 栈记
 ---
-> 对JavaWeb应用部署的梳理、思考以及对部署“祛魅”过程记录
+> 对JavaWeb应用部署的梳理、思考以及我对部署“祛魅”的过程记录
 
 ## 一、前言
 
@@ -214,7 +214,7 @@ Nginx 常用指令：
 
 在 [XSHELL](https://www.xshell.com/zh/xshell/) 下载 XShell，用于远程命令行操作；在 [XFTP](https://www.xshell.com/zh/xftp/) 下载 XFTP，用于可视化文件传输。
 
-> 这里不得不提，我一开始用的是 **FinalShell**（[FinalShell 官网](https://www.hostbuf.com/)），搜索时误入了几个假官网，下载了带木马的挖矿病毒，一下午 CPU 被干烧了，最后靠 agent 排毒才力挽狂澜。这类网站通常比真官网还精美，极具迷惑性。
+> 这里不得不提，我一开始用的是 **FinalShell**（[FinalShell 官网](https://www.hostbuf.com/)），搜索时误入了几个假官网，下载了木马病毒，偷偷在后台挖矿，一下午 CPU 被干烧了，最后靠 agent 排毒才力挽狂澜。吃一堑，长一智。这类网站通常比真官网还精美，极具迷惑性，下载时一定要小心。
 
 注册账号并进入 XShell 后，新建会话，主机填入服务器的**公网 IP**，确定后输入服务器的账号密码即可远程连接。XFTP 同理。
 

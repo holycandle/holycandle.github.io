@@ -145,9 +145,25 @@
   // 3. 替换扁平 TOC
   if (newOl) {
     newOl.classList.add('toc');
+    // 根 ol 不需要 toc-children 的 overflow:hidden，否则会裁剪内容
+    newOl.classList.remove('toc-children');
     newOl.style.listStyle = 'none';
     newOl.style.paddingLeft = '0';
     flatOl.parentNode.replaceChild(newOl, flatOl);
+
+    // 辅助：向上更新所有祖先 ol.toc-children 的 max-height
+    function updateAncestorHeights(childOl) {
+      childOl.offsetHeight; // 强制子级完成布局
+      var parentLi = childOl.closest('li.toc-item');
+      while (parentLi) {
+        var ancestorOl = parentLi.closest('ol.toc-children');
+        if (!ancestorOl || ancestorOl === newOl) break;
+        if (!ancestorOl.classList.contains('collapsed')) {
+          ancestorOl.style.maxHeight = ancestorOl.scrollHeight + 'px';
+        }
+        parentLi = ancestorOl.closest('li.toc-item');
+      }
+    }
 
     // 4. 绑定折叠事件
     newOl.addEventListener('click', function(e) {
@@ -160,17 +176,33 @@
 
       var isCollapsed = childOl.classList.contains('collapsed');
       if (isCollapsed) {
+        // ── 展开 ──
+        // 优先使用折叠时保存的高度；否则临时解除约束后测量
+        var targetH = parseFloat(childOl.dataset.expandedH);
+        if (!targetH) {
+          childOl.classList.remove('collapsed');
+          childOl.style.maxHeight = 'none';
+          childOl.style.overflow = 'visible';
+          targetH = childOl.scrollHeight;
+          childOl.classList.add('collapsed');
+          childOl.style.overflow = '';
+        }
         childOl.classList.remove('collapsed');
-        childOl.style.maxHeight = childOl.scrollHeight + 'px';
+        childOl.style.maxHeight = targetH + 'px';
+        childOl.style.overflow = '';
+        updateAncestorHeights(childOl);
         toggle.classList.remove('collapsed');
         toggle.setAttribute('aria-expanded', 'true');
         toggle.textContent = '▾';
       } else {
-        childOl.style.maxHeight = childOl.scrollHeight + 'px';
-        // 强制回流后设置
-        childOl.offsetHeight;
+        // ── 折叠 ──
+        var expandedH = childOl.scrollHeight;
+        childOl.dataset.expandedH = expandedH;
+        childOl.style.maxHeight = expandedH + 'px';
+        childOl.offsetHeight; // 锁定过渡起点
         childOl.classList.add('collapsed');
-        childOl.style.maxHeight = '0px';
+        // 不设 inline max-height:0，由 CSS .collapsed !important 接管
+        updateAncestorHeights(childOl);
         toggle.classList.add('collapsed');
         toggle.setAttribute('aria-expanded', 'false');
         toggle.textContent = '▸';
