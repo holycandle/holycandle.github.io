@@ -3,10 +3,10 @@ title: 从零开始的JavaWeb应用部署
 date: 2026-07-17
 author: okiso
 tags:
-  - "#云服务器"
-  - "#部署"
-  - "#JavaWeb"
-  - "#Linux"
+  - 云服务器
+  - 部署
+  - JavaWeb
+  - Linux
 categories:
   - 栈记
 ---

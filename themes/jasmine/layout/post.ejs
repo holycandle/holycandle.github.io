@@ -96,6 +96,8 @@
     if (!children.length) return null;
     var ol = document.createElement('ol');
     ol.className = 'toc-children';
+    ol.style.listStyle = 'none';
+    ol.style.paddingLeft = '0';
     children.forEach(function(node) {
       var li = document.createElement('li');
       li.className = 'toc-item toc-level-' + node.level;
@@ -143,6 +145,8 @@
   // 3. 替换扁平 TOC
   if (newOl) {
     newOl.classList.add('toc');
+    newOl.style.listStyle = 'none';
+    newOl.style.paddingLeft = '0';
     flatOl.parentNode.replaceChild(newOl, flatOl);
 
     // 4. 绑定折叠事件

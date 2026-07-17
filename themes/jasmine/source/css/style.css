@@ -672,7 +672,8 @@ hr {
 .toc-article ol.toc,
 .toc-article ol.toc-children {
   padding-left: 0;
-  list-style: none;
+  list-style: none !important;
+  list-style-type: none !important;
   line-height: 1.8;
 }
 
