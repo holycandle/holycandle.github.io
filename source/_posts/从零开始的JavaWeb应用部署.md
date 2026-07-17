@@ -10,7 +10,7 @@ tags:
 categories:
   - 栈记
 ---
-> 对JavaWeb应用部署的梳理、思考以及祛魅
+> 从零部署了一个JavaWeb项目后，对JavaWeb应用部署的梳理、思考以及祛魅
 
 ## 一、前言
 
