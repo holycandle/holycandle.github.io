@@ -205,6 +205,7 @@ Nginx 常用指令：
 现在，访问 `localhost:80` 即可看到应用。
 
 ## 三、云服务器部署
+最后，我们需要把项目部署到真正的服务器上，让所有人都能访问。
 
 **云服务器（Elastic Compute Service, ECS）** 比物理服务器更简单高效，无需提前购买昂贵硬件，即可快速创建或删除。购买云服务器时会附赠**公网 IP**。国内可在 [阿里云](https://www.aliyun.com)、[腾讯云](https://cloud.tencent.com) 和 [京东云](https://www.jdcloud.com) 等平台购买。
 
