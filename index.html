@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Horizon &amp; Jasmine</title>
+
+  
+  
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Horizon &amp; Jasmine">
+  <meta property="og:url" content="https://holycandle.github.io/index.html">
+  <meta property="og:site_name" content="Horizon &amp; Jasmine">
+  
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕯️</text></svg>">
+
+  <!-- Fonts: LXGW WenKai via jsDelivr (accessible in China), Calligraffitti via Google Fonts -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/personal.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="-page">
+
+  <!-- ── 首页 Hero ── -->
+<div class="content-home text-center">
+  <a class="avatar" href="/">
+    <img src="/images/profile.jpg" alt="Horizon">
+  </a>
+  <h1 class="name" style="font-family: 'Calligraffitti', cursive;">
+    Horizon &amp; Jasmine
+  </h1>
+  
+  <div class="slogan">
+    码上见性，屏前忘机
+  </div>
+  
+
+  <hr>
+
+  <ul class="text-center nav">
+    
+    
+      <li class="item">
+        <a href="/archives" >Blog</a>
+        <span>|</span>
+      </li>
+    
+      <li class="item">
+        <a href="/categories" >分类</a>
+        <span>|</span>
+      </li>
+    
+      <li class="item">
+        <a href="/tags" >标签</a>
+        <span>|</span>
+      </li>
+    
+      <li class="item">
+        <a href="/about" >关于</a>
+        <span>|</span>
+      </li>
+    
+  </ul>
+</div>
+
+<!-- ── 最近文章 ── -->
+<div class="content-home-recent">
+  <h2 class="recent-posts-title">最近文章</h2>
+
+  <ul class="list-post list-post-rich timeline-list">
+    
+      <li class="item-year item item-title item-title-1">
+        <a href="/archives/2026" class="text-year">
+          2026
+        </a>
+      </li>
+    
+
+      <li class="item-post-rich item">
+        <div class="post-row">
+          <time class="post-date" datetime="2026-07-20">
+            07-20
+          </time>
+          <div class="post-body">
+            <a class="post-title" href="/2026/07/20/%E6%B8%85%E5%92%8C%E7%9A%84%E9%94%99%E8%A7%89/">清和的错觉</a>
+            
+            <span class="post-tags">
+              
+                <a class="post-tag" href="/tags/#%E4%B9%90%E6%B8%85">乐清</a>
+              
+            </span>
+            
+            
+            
+            <p class="post-excerpt">这几天相当的热，我都没怎么睡好。下午要和朋友去看电影，于是上午还是照常学习JavaWeb。在乐清这批友人中，也只有我还在继续学计算机，而他是核物理专业，这几天刚从研究所实习回来。乐清依旧非常干净，可以把视野放到很远的蓝天和麦田。到市区仍然是那条老路，不知道骑过多少次，我不喜欢打车和坐公交，认为健康而自由的交通方式是正常的。曾经骑车上下学是且听风吟般的轻松，午后到校我把烦恼和汗水一起挥洒，夜路回家心...</p>
+            
+          </div>
+        </div>
+      </li>
+    
+
+      <li class="item-post-rich item">
+        <div class="post-row">
+          <time class="post-date" datetime="2026-07-17">
+            07-17
+          </time>
+          <div class="post-body">
+            <a class="post-title" href="/2026/07/17/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84JavaWeb%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2/">从零开始的JavaWeb应用部署</a>
+            
+            <span class="post-tags">
+              
+                <a class="post-tag" href="/tags/#%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8">云服务器</a>
+              
+                <a class="post-tag" href="/tags/#%E9%83%A8%E7%BD%B2">部署</a>
+              
+                <a class="post-tag" href="/tags/#JavaWeb">JavaWeb</a>
+              
+                <a class="post-tag" href="/tags/#Linux">Linux</a>
+              
+            </span>
+            
+            
+            
+            <p class="post-excerpt">从零部署一个JavaWeb项目后，对部署流程的梳理与思考
+
+一、前言当我们测试完最后一段代码，觉得自己手上的 Web 应用总算是能给人看了。问题来了——要怎么让别人看到？
+不妨先思考一个问题：开发过程中，我们是如何看到自己应用的？以经典的 Vue + Spring Boot 前后端分离项目为例，通过 Node.js 启动前端服务，默认占用 5173 端口；通过 Maven 启动后端服务，默认占用...</p>
+            
+          </div>
+        </div>
+      </li>
+    
+
+      <li class="item-post-rich item">
+        <div class="post-row">
+          <time class="post-date" datetime="2026-02-07">
+            02-07
+          </time>
+          <div class="post-body">
+            <a class="post-title" href="/2026/02/07/%E4%BB%8E100%E5%9D%97%E9%92%B1%E7%9C%8B%E4%B8%8A%E5%B8%9D%E7%9A%84%E6%9C%AC%E4%BD%93%E8%AE%BA%E8%AF%81%E6%98%8E%E5%8F%91%E5%B1%95/">从100块钱看上帝的本体论证明发展</a>
+            
+            <span class="post-tags">
+              
+                <a class="post-tag" href="/tags/#%E9%BB%91%E6%A0%BC%E5%B0%94">黑格尔</a>
+              
+                <a class="post-tag" href="/tags/#%E9%A9%AC%E5%85%8B%E6%80%9D">马克思</a>
+              
+                <a class="post-tag" href="/tags/#%E4%B8%8A%E5%B8%9D%E7%9A%84%E6%9C%AC%E4%BD%93%E8%AE%BA%E8%AF%81%E6%98%8E">上帝的本体论证明</a>
+              
+            </span>
+            
+            
+            
+            <p class="post-excerpt">安瑟尔谟：上帝一定存在想象一个全能的上帝。
+如果它仅仅在我的思想中存在而不在现实中存在，那么就并非全能。
+因为”在现实中存在”总是比”仅在思想中存在”更完满。
+所以，上帝理应在现实中也存在。
+这是安瑟尔谟在11世纪《宣言》中提出的论证。几百年后，康德给它起了个名字：“上帝的本体论证明”——一种试图仅凭概念分析就推出上帝存在的证明。
+问题是：这真的成立吗?
+康德：别把意淫当现实康德说，这套把戏行不通...</p>
+            
+          </div>
+        </div>
+      </li>
+    
+
+      <li class="item-post-rich item">
+        <div class="post-row">
+          <time class="post-date" datetime="2026-01-24">
+            01-24
+          </time>
+          <div class="post-body">
+            <a class="post-title" href="/2026/01/24/%E5%93%B2%E5%AD%A6%E7%9A%84%E5%BC%80%E7%AB%AF%EF%BC%8C%E5%B0%B1%E6%98%AF%E2%80%9C%E6%B2%A1%E6%9C%89%E5%BC%80%E7%AB%AF%E2%80%9D/">哲学的开端，就是“没有开端”</a>
+            
+            <span class="post-tags">
+              
+                <a class="post-tag" href="/tags/#%E9%BB%91%E6%A0%BC%E5%B0%94">黑格尔</a>
+              
+                <a class="post-tag" href="/tags/#%E3%80%8A%E9%80%BB%E8%BE%91%E5%AD%A6%E3%80%8B">《逻辑学》</a>
+              
+            </span>
+            
+            
+            
+            <p class="post-excerpt">一、对于开端的焦虑如果哲学以解释世界为目的，那么一个可靠的开端便不可或缺。　　
+我们习惯于从直接的事物出发，追问其根据，进而追问根据的根据……这种推究似乎永无止境。若愿意将哲学矮化为一种普通科学，或许可以接受一种妥协：暂且承认一个假定的开端——诸如公理或基本事实——并以此为地基搭建整座哲学的高楼大厦。　　
+然而，真理不应容许这样的妥协。　　
+如果承认真理是绝对的，就必须怀有一种坚定的信念：拒绝一切...</p>
+            
+          </div>
+        </div>
+      </li>
+    
+      <li class="item-year item item-title item-title-2">
+        <a href="/archives/2025" class="text-year">
+          2025
+        </a>
+      </li>
+    
+
+      <li class="item-post-rich item">
+        <div class="post-row">
+          <time class="post-date" datetime="2025-10-10">
+            10-10
+          </time>
+          <div class="post-body">
+            <a class="post-title" href="/2025/10/10/%E4%B8%9C%E6%96%B9%E4%B8%8D%E8%B4%A5%E4%B8%BA%E4%BB%80%E4%B9%88%E2%80%9C%E4%B8%8D%E8%B4%A5%E2%80%9D/">东方不败为什么“不败”</a>
+            
+            <span class="post-tags">
+              
+                <a class="post-tag" href="/tags/#%E3%80%8A%E7%AC%91%E5%82%B2%E6%B1%9F%E6%B9%96%E3%80%8B">《笑傲江湖》</a>
+              
+                <a class="post-tag" href="/tags/#%E6%8B%89%E5%BA%B7">拉康</a>
+              
+                <a class="post-tag" href="/tags/#%E9%BB%91%E6%A0%BC%E5%B0%94">黑格尔</a>
+              
+                <a class="post-tag" href="/tags/#%E9%87%91%E5%BA%B8">金庸</a>
+              
+            </span>
+            
+            
+            
+            <p class="post-excerpt">金庸《笑傲江湖》中的《葵花宝典》很有名，因为里面第一句就是 “欲练神功，引刀自宫”。有一种观点认为，这是要放下欲望，专心练功，最后天下无敌。而从拉康角度，或许存在另一种解法。
+武林的大他者与符号系统金庸小说里中的武林，武功高则地位高，武功低则地位低。低位者勤加练武，依循武林规则（打一架），即可晋升高位，获得权力财富。这一完善的评价体系，即拉康所谓的符号系统，因为在这评价体系由语言所建构，而人人都欲...</p>
+            
+          </div>
+        </div>
+      </li>
+    
+      <li class="item-year item item-title item-title-3">
+        <a href="/archives/2024" class="text-year">
+          2024
+        </a>
+      </li>
+    
+
+      <li class="item-post-rich item">
+        <div class="post-row">
+          <time class="post-date" datetime="2024-09-17">
+            09-17
+          </time>
+          <div class="post-body">
+            <a class="post-title" href="/2024/09/17/%E6%9C%9B%E6%B1%9F%E5%8D%97%C2%B7%E4%B8%AD%E7%A7%8B/">望江南·中秋</a>
+            
+            <span class="post-tags">
+              
+                <a class="post-tag" href="/tags/#%E4%B9%90%E6%B8%85">乐清</a>
+              
+                <a class="post-tag" href="/tags/#%E8%AF%8D">词</a>
+              
+                <a class="post-tag" href="/tags/#%E4%B8%AD%E7%A7%8B">中秋</a>
+              
+            </span>
+            
+            
+            
+            <p class="post-excerpt">金秋半，拭玉镜枝头。焘碧霄烟斜若隐，昏黄月止立云洲。辉落渐清幽。
+无意料，正舞象年悠。莫醉南柯堪自弃，且承新火斗千周。心系翌年游。...</p>
+            
+          </div>
+        </div>
+      </li>
+    
+
+      <li class="item-post-rich item">
+        <div class="post-row">
+          <time class="post-date" datetime="2024-08-11">
+            08-11
+          </time>
+          <div class="post-body">
+            <a class="post-title" href="/2024/08/11/%E5%86%8D%E5%88%AB%E5%90%9B/">再别君</a>
+            
+            <span class="post-tags">
+              
+                <a class="post-tag" href="/tags/#%E4%B8%AD%E5%8D%8E%E9%80%9A%E9%9F%B5">中华通韵</a>
+              
+                <a class="post-tag" href="/tags/#%E4%B8%83%E5%BE%8B">七律</a>
+              
+                <a class="post-tag" href="/tags/#%E4%B9%90%E6%B8%85">乐清</a>
+              
+            </span>
+            
+            
+            
+            <p class="post-excerpt">偏偏辗转思无绪，旧处佳人小梦真。暗暗秋波相会契，明明春水汇柔温。良宵情语难一弃，苦夜长书易自成。此去相别无悔意，长流一芥泛吾生。
+按：“成”“生”均用邻韵...</p>
+            
+          </div>
+        </div>
+      </li>
+    
+
+      <li class="item-post-rich item">
+        <div class="post-row">
+          <time class="post-date" datetime="2024-08-06">
+            08-06
+          </time>
+          <div class="post-body">
+            <a class="post-title" href="/2024/08/06/%E5%A4%9C%E7%99%BB%E8%80%81%E9%B9%B0%E5%98%B4/">夜登老鹰嘴</a>
+            
+            <span class="post-tags">
+              
+                <a class="post-tag" href="/tags/#%E4%B9%90%E6%B8%85">乐清</a>
+              
+                <a class="post-tag" href="/tags/#%E4%BA%94%E5%BE%8B">五律</a>
+              
+            </span>
+            
+            
+            
+            <p class="post-excerpt">暖夜拂人醉，冷钟过半鸣。蓝衣身上著，青雨檐外淋。轻骑倚山下，孑身傍水行。雄鸡白远野，始至日观亭。
+按：“淋”用邻韵...</p>
+            
+          </div>
+        </div>
+      </li>
+    
+  </ul>
+
+  <p class="recent-posts-more">
+    <a href="/archives">查看全部 →</a>
+  </p>
+</div>
+
+
+  <!-- Mobile modal nav -->
+  <div class="modal" id="modal">
+    <span id="cover" class="cover hide"></span>
+    <div id="modal-dialog" class="modal-dialog hide-dialog">
+      <div class="modal-header">
+        <span id="close" class="btn-close">关闭</span>
+      </div>
+      <hr>
+      <div class="modal-body">
+        <ul class="list-toolbox">
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives" >
+              Blog
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories" >
+              分类
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags" >
+              标签
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about" >
+              关于
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
+
+</body>
+</html>

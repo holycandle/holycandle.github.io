@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>从零开始的JavaWeb应用部署 | Horizon &amp; Jasmine</title>
+
+  
+  
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="从零开始的JavaWeb应用部署">
+  <meta property="og:url" content="https://holycandle.github.io/2026/07/17/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84JavaWeb%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2/">
+  <meta property="og:site_name" content="Horizon &amp; Jasmine">
+  
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕯️</text></svg>">
+
+  <!-- Fonts: LXGW WenKai via jsDelivr (accessible in China), Calligraffitti via Google Fonts -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/personal.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="post-page">
+
+  
+
+<!-- ── 移动端底部导航按钮 ── -->
+<span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+
+<!-- ── 右侧边栏：盒子导航 + 文章目录 ── -->
+<aside class="post-sidebar">
+  <div class="toolbox post-toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down">▾</i>
+      <span class="icon-home-text"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
+    </a>
+    <ul class="list-toolbox">
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/archives" >
+          Blog
+        </a>
+      </li>
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/categories" >
+          分类
+        </a>
+      </li>
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/tags" >
+          标签
+        </a>
+      </li>
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/about" >
+          关于
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">一、前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%83%E4%B9%A0"><span class="toc-number">2.</span> <span class="toc-text">二、虚拟机练习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89-%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.</span> <span class="toc-text">（一） 搭建环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AE-WSL"><span class="toc-number">2.1.1.</span> <span class="toc-text">1. 配置 WSL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85-Ubuntu"><span class="toc-number">2.1.2.</span> <span class="toc-text">2. 安装 Ubuntu</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.2.</span> <span class="toc-text">（二）远程连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%AD%A6%E4%B9%A0-Linux"><span class="toc-number">2.3.</span> <span class="toc-text">（三）学习 Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E9%83%A8%E7%BD%B2"><span class="toc-number">2.4.</span> <span class="toc-text">（四）部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-number">2.4.1.</span> <span class="toc-text">1. 安装依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%90%8E%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="toc-number">2.4.2.</span> <span class="toc-text">2. 后端部署</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%89%93%E5%8C%85"><span class="toc-number">2.4.2.1.</span> <span class="toc-text">（1）打包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%90%AF%E5%8A%A8"><span class="toc-number">2.4.2.2.</span> <span class="toc-text">（2）启动</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%89%8D%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="toc-number">2.4.3.</span> <span class="toc-text">3. 前端部署</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%89%93%E5%8C%85-1"><span class="toc-number">2.4.3.1.</span> <span class="toc-text">（1）打包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E9%85%8D%E7%BD%AE-Nginx"><span class="toc-number">2.4.3.2.</span> <span class="toc-text">（2）配置 Nginx</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#A-%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90"><span class="toc-number">2.4.3.2.1.</span> <span class="toc-text">A.静态资源</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#B-%E9%85%8D%E7%BD%AE%E8%A7%84%E5%88%99"><span class="toc-number">2.4.3.2.2.</span> <span class="toc-text">B.配置规则</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%90%AF%E5%8A%A8"><span class="toc-number">2.4.3.3.</span> <span class="toc-text">（3）启动</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2"><span class="toc-number">3.</span> <span class="toc-text">三、云服务器部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="toc-number">3.1.</span> <span class="toc-text">（一）远程连接</span></a></li></ol></li></ol>
+  </div>
+  
+</aside>
+
+<!-- ── 文章内容区 ── -->
+
+<!-- ═══════════════════════════════════════════
+   TOC: 将 Hexo 扁平 TOC 重建为可折叠树
+   ═══════════════════════════════════════════ -->
+<script>
+(function() {
+  var toc = document.getElementById('toc');
+  if (!toc) return;
+
+  var flatOl = toc.querySelector('ol.toc');
+  if (!flatOl) return;
+
+  // 1. 解析扁平 TOC，构建层级树
+  var flatItems = Array.from(flatOl.querySelectorAll('li.toc-item'));
+  if (!flatItems.length) return;
+
+  function getLevel(li) {
+    var match = (li.className || '').match(/toc-level-(\d+)/);
+    return match ? parseInt(match[1], 10) : 2;
+  }
+
+  // 构建树节点 { level, link, text, children }
+  var root = { level: 1, children: [] };
+  var stack = [root];  // 祖先链，stack[stack.length-1] 是当前父节点
+
+  flatItems.forEach(function(li) {
+    var level = getLevel(li);
+    var link = li.querySelector('a.toc-link');
+    var href = link ? link.getAttribute('href') : '';
+    var text = link ? (link.querySelector('.toc-text') ? link.querySelector('.toc-text').textContent : link.textContent) : '';
+
+    var node = { level: level, href: href, text: text, children: [] };
+
+    // 找到父节点：向上找 stack 中 level < node.level 的最近节点
+    while (stack.length > 1 && stack[stack.length - 1].level >= level) {
+      stack.pop();
+    }
+    var parent = stack[stack.length - 1];
+    parent.children.push(node);
+    stack.push(node);
+  });
+
+  // 2. 从树构建 DOM
+  function buildOl(children, parentLevel) {
+    if (!children.length) return null;
+    var ol = document.createElement('ol');
+    ol.className = 'toc-children';
+    ol.style.listStyle = 'none';
+    ol.style.paddingLeft = '0';
+    children.forEach(function(node) {
+      var li = document.createElement('li');
+      li.className = 'toc-item toc-level-' + node.level;
+
+      var inner = document.createElement('div');
+      inner.className = 'toc-item-inner';
+
+      var hasChildren = node.children.length > 0;
+
+      // Toggle 按钮（仅对有子项的节点）
+      if (hasChildren) {
+        var toggle = document.createElement('span');
+        toggle.className = 'toc-toggle';
+        toggle.textContent = '▾';
+        toggle.setAttribute('aria-expanded', 'true');
+        inner.appendChild(toggle);
+      } else {
+        // 占位，保持对齐
+        var spacer = document.createElement('span');
+        spacer.className = 'toc-toggle';
+        spacer.style.cssText = 'visibility:hidden;';
+        inner.appendChild(spacer);
+      }
+
+      var a = document.createElement('a');
+      a.className = 'toc-link';
+      a.href = node.href;
+      a.textContent = node.text;
+      inner.appendChild(a);
+      li.appendChild(inner);
+
+      // 递归构建子级
+      var childOl = buildOl(node.children, node.level);
+      if (childOl) {
+        li.appendChild(childOl);
+      }
+
+      ol.appendChild(li);
+    });
+    return ol;
+  }
+
+  var newOl = buildOl(root.children, 1);
+
+  // 3. 替换扁平 TOC
+  if (newOl) {
+    newOl.classList.add('toc');
+    // 根 ol 不需要 toc-children 的 overflow:hidden，否则会裁剪内容
+    newOl.classList.remove('toc-children');
+    newOl.style.listStyle = 'none';
+    newOl.style.paddingLeft = '0';
+    flatOl.parentNode.replaceChild(newOl, flatOl);
+
+    // 辅助：向上更新所有祖先 ol.toc-children 的 max-height
+    function updateAncestorHeights(childOl) {
+      childOl.offsetHeight; // 强制子级完成布局
+      var parentLi = childOl.closest('li.toc-item');
+      while (parentLi) {
+        var ancestorOl = parentLi.closest('ol.toc-children');
+        if (!ancestorOl || ancestorOl === newOl) break;
+        if (!ancestorOl.classList.contains('collapsed')) {
+          ancestorOl.style.maxHeight = ancestorOl.scrollHeight + 'px';
+        }
+        parentLi = ancestorOl.closest('li.toc-item');
+      }
+    }
+
+    // 4. 绑定折叠事件
+    newOl.addEventListener('click', function(e) {
+      var toggle = e.target.closest('.toc-toggle');
+      if (!toggle) return;
+      var li = toggle.closest('.toc-item');
+      if (!li) return;
+      var childOl = li.querySelector(':scope > ol.toc-children');
+      if (!childOl) return;
+
+      var isCollapsed = childOl.classList.contains('collapsed');
+      if (isCollapsed) {
+        // ── 展开 ──
+        // 优先使用折叠时保存的高度；否则临时解除约束后测量
+        var targetH = parseFloat(childOl.dataset.expandedH);
+        if (!targetH) {
+          childOl.classList.remove('collapsed');
+          childOl.style.maxHeight = 'none';
+          childOl.style.overflow = 'visible';
+          targetH = childOl.scrollHeight;
+          childOl.classList.add('collapsed');
+          childOl.style.overflow = '';
+        }
+        childOl.classList.remove('collapsed');
+        childOl.style.maxHeight = targetH + 'px';
+        childOl.style.overflow = '';
+        updateAncestorHeights(childOl);
+        toggle.classList.remove('collapsed');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.textContent = '▾';
+      } else {
+        // ── 折叠 ──
+        var expandedH = childOl.scrollHeight;
+        childOl.dataset.expandedH = expandedH;
+        childOl.style.maxHeight = expandedH + 'px';
+        childOl.offsetHeight; // 锁定过渡起点
+        childOl.classList.add('collapsed');
+        // 不设 inline max-height:0，由 CSS .collapsed !important 接管
+        updateAncestorHeights(childOl);
+        toggle.classList.add('collapsed');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = '▸';
+      }
+    });
+
+    // 初始化：所有展开
+    var allChildren = newOl.querySelectorAll('ol.toc-children');
+    allChildren.forEach(function(ol) {
+      ol.style.maxHeight = ol.scrollHeight + 'px';
+    });
+  }
+})();
+</script>
+<div class="content content-post CENTER">
+  <article id="post-从零开始的JavaWeb应用部署" class="article" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="article-header">
+      <h1 class="post-title">从零开始的JavaWeb应用部署</h1>
+
+      <div class="article-meta">
+        <span class="meta-item">
+          <i class="meta-icon">&#x1F4C5;</i>
+          <span>2026.07.17</span>
+        </span>
+
+        
+        
+        <span class="meta-sep">·</span>
+        <span class="meta-item">
+          <i class="meta-icon">&#x270D;</i>
+          <span>okiso</span>
+        </span>
+        
+
+        
+        <span class="meta-sep">·</span>
+        <span class="meta-item">
+          <i class="meta-icon">&#x1F4C2;</i>
+          
+          <a class="article-category-link" href="/categories/#%E6%A0%88%E8%AE%B0">栈记</a>
+          
+        </span>
+        
+      </div>
+
+      
+      <div class="article-tags">
+        
+        <a class="article-tag" href="/tags/#%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8">云服务器</a>
+        
+        <a class="article-tag" href="/tags/#%E9%83%A8%E7%BD%B2">部署</a>
+        
+        <a class="article-tag" href="/tags/#JavaWeb">JavaWeb</a>
+        
+        <a class="article-tag" href="/tags/#Linux">Linux</a>
+        
+      </div>
+      
+    </header>
+
+    <div class="article-content">
+      <blockquote>
+<p>从零部署一个JavaWeb项目后，对部署流程的梳理与思考</p>
+</blockquote>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>当我们测试完最后一段代码，觉得自己手上的 Web 应用总算是能给人看了。问题来了——要怎么让别人看到？</p>
+<p>不妨先思考一个问题：开发过程中，我们是如何看到自己应用的？以经典的 <strong>Vue + Spring Boot</strong> 前后端分离项目为例，通过 Node.js 启动前端服务，默认占用 <code>5173</code> 端口；通过 Maven 启动后端服务，默认占用 <code>8080</code> 端口。<strong>端口</strong>标记了某个应用服务在电脑上的位置，通过端口可以调用该服务。</p>
+<p>现在，我们可以在浏览器访问 <code>localhost:5173</code>，看到正在运行的前端页面。部分交互只需前端呈现静态资源即可；另一部分则需要将数据发送到 <code>localhost:8080</code>（即 Spring Boot 后端服务），经业务代码处理后返回。</p>
+<p>既然如此，能不能让别人直接访问 <code>localhost:5173</code>，看到我们的应用？先说结论：可以，但没必要。</p>
+<p>首先，Vue 开发服务器和 Spring Boot 默认都监听 <code>localhost（127.0.0.1）</code>，只接受来自本机的访问，数据仅在电脑内部传输。当别人通过你的局域网 IP（如 <code>192.168.1.5</code>）访问时，服务根本不会响应，直接拒绝连接。</p>
+<p>当然，可以修改 Vue 和 Spring Boot 的配置，让它们监听所有网卡，即 <code>0.0.0.0</code>，接收来自<strong>任何网络接口</strong>的请求：</p>
+<ul>
+<li>来自本机的 <code>127.0.0.1</code></li>
+<li>来自局域网其他设备的 <code>192.168.x.x</code></li>
+<li>如果服务器有公网 IP，也监听来自公网的请求</li>
+</ul>
+<p>可这样还不够——Windows 防火墙默认拦截外部设备对端口的访问（保护本机安全）。即使修改入站规则、开放部分端口，依然有最根本的限制：电脑上的 IP（如 <code>192.168.x.x</code>）是<strong>局域网私有 IP</strong>，只有同一 Wi-Fi 下的设备可以访问，外网无法连接。</p>
+<p>因此，让所有人访问应用的必备条件是<strong>公网 IP</strong>。但还不够，服务需要 24h 不中断，这对个人电脑来说，无论是算力还是日常使用都不太现实。最简便的做法是买一台云服务器——它就是一台适合 24h 开机运行服务的电脑。</p>
+<p>所谓<strong>部署</strong>，就是在拥有公网 IP 的服务器上运行我们的服务。所幸现在购买服务器都会附赠公网 IP，我们只需解决两个问题：</p>
+<ol>
+<li>如何控制不在眼前的服务器？</li>
+<li>如何在服务器上运行我们的服务（服务器常用 <strong>Linux 系统</strong>）？</li>
+</ol>
+<h2 id="二、虚拟机练习"><a href="#二、虚拟机练习" class="headerlink" title="二、虚拟机练习"></a>二、虚拟机练习</h2><p>不妨先用<strong>虚拟机</strong>模拟远程服务器，零成本练手。</p>
+<h3 id="（一）-搭建环境"><a href="#（一）-搭建环境" class="headerlink" title="（一） 搭建环境"></a>（一） 搭建环境</h3><h4 id="1-配置-WSL"><a href="#1-配置-WSL" class="headerlink" title="1. 配置 WSL"></a>1. 配置 WSL</h4><p>常见的选择是 <strong>VMware</strong>，功能全面但较为笨重。这里推荐使用 Windows 自带的 <strong>WSL（Windows Subsystem for Linux）</strong>。</p>
+<ol>
+<li><strong>以管理员身份打开 PowerShell</strong>，依次输入：<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启用 WSL 功能</span></span><br><span class="line">dism.exe /online /<span class="built_in">enable-feature</span> /featurename:Microsoft<span class="literal">-Windows-Subsystem-Linux</span> /all /norestart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用虚拟机平台（WSL2 必需）</span></span><br><span class="line">dism.exe /online /<span class="built_in">enable-feature</span> /featurename:VirtualMachinePlatform /all /norestart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启电脑（必须）</span></span><br><span class="line"><span class="built_in">Restart-Computer</span></span><br></pre></td></tr></table></figure></li>
+<li>重启后，再次打开 PowerShell（普通权限即可），执行：<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置 WSL2 为默认版本</span></span><br><span class="line">wsl <span class="literal">--set-default-version</span> <span class="number">2</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="2-安装-Ubuntu"><a href="#2-安装-Ubuntu" class="headerlink" title="2. 安装 Ubuntu"></a>2. 安装 Ubuntu</h4><p>Ubuntu 是一个流行的 Linux 发行版，在 PowerShell 中直接执行：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 自动下载最新 Ubuntu 发行版并安装</span></span><br><span class="line">wsl <span class="literal">--install</span> <span class="literal">-d</span> Ubuntu</span><br></pre></td></tr></table></figure>
+<p>安装完成后，<strong>首次启动 Ubuntu</strong> 会提示创建用户名和密码：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Enter new UNIX username: 你的用户名（例如 dev）</span><br><span class="line">New password: 输入密码（不显示）</span><br><span class="line">Retype new password: 确认密码</span><br></pre></td></tr></table></figure>
+
+<h3 id="（二）远程连接"><a href="#（二）远程连接" class="headerlink" title="（二）远程连接"></a>（二）远程连接</h3><p>现实中的服务器往往在千里之外，我们只知道一个 IP，无法直接操作。这时需要<strong>远程连接</strong>工具，将指令传输到远程服务器中。</p>
+<p>对于 WSL，可以直接通过 VSCode 连接：安装 <strong>WSL 拓展</strong>，按 <code>Ctrl+Shift+P</code> 选择 <code>Connect to WSL</code> 即可。或者在 Ubuntu 终端输入 <code>code .</code>，直接在 VSCode 中打开当前目录。这让我们可以通过 VSCode 的可视化界面来操控虚拟机。</p>
+<p>当然，更经典的做法是通过 <strong>XShell</strong>、<strong>FinalShell</strong> 等工具远程连接，后面连接云服务器时也会用到。但 WSL 默认没有 <strong>SSH</strong> 服务器的服务，需要自行安装<code>openssh-server</code>。</p>
+<h3 id="（三）学习-Linux"><a href="#（三）学习-Linux" class="headerlink" title="（三）学习 Linux"></a>（三）学习 Linux</h3><p>关于 Linux 的学习，网上有很多教程：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-tutorial.html">Linux 教程 | 菜鸟教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/meilindehuzi_a/article/details/162811916?spm=1001.2014.3001.5506">Linux 基础指令从入门到精通：基础指令、重定向、管道与权限完全指南-CSDN博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-linux-command-line-primer">A Linux Command Line Primer | DigitalOcean</a></li>
+</ul>
+<p>实际上不需要特别深入，部署只需了解<strong>基本指令和目录结构</strong>即可，在实战中会慢慢熟悉。</p>
+<h3 id="（四）部署"><a href="#（四）部署" class="headerlink" title="（四）部署"></a>（四）部署</h3><p>基本掌握 Linux 后，就开始部署吧！流程其实很简单：将前后端项目分别<strong>打包</strong>，再分别启动，让服务器持续运行即可。我们只需要把 Windows 上启动项目的流程，用 Linux 的方式走一遍。</p>
+<h4 id="1-安装依赖"><a href="#1-安装依赖" class="headerlink" title="1. 安装依赖"></a>1. 安装依赖</h4><p>先根据项目文档安装所有依赖。Linux 强大的<strong>包管理器</strong>让我们通过指令即可下载软件并自动配置相关环境变量。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 连接软件源服务器，下载最新软件包列表并更新本地缓存</span></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="comment"># 升级所有已安装包</span></span><br><span class="line"><span class="built_in">sudo</span> apt upgrade -y</span><br><span class="line"><span class="comment"># 安装开发常用工具</span></span><br><span class="line"><span class="built_in">sudo</span> apt install -y git curl wget vim net-tools</span><br><span class="line"><span class="comment"># 安装 OpenJDK 17（Spring Boot 常用）</span></span><br><span class="line"><span class="built_in">sudo</span> apt install -y openjdk-17-jdk</span><br><span class="line"><span class="comment"># 安装 Maven</span></span><br><span class="line"><span class="built_in">sudo</span> apt install maven -y</span><br><span class="line"><span class="comment"># 安装 Node.js</span></span><br><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash</span><br><span class="line"><span class="comment"># 关闭当前终端后重新打开，或执行 source ~/.bashrc，然后：</span></span><br><span class="line">nvm install 18</span><br><span class="line">nvm <span class="built_in">alias</span> default 18</span><br><span class="line"><span class="comment"># 安装 Nginx（详见前端部署）</span></span><br><span class="line"><span class="built_in">sudo</span> apt install nginx -y</span><br><span class="line"><span class="comment"># 安装 Docker（如需容器部署）</span></span><br><span class="line"><span class="built_in">sudo</span> apt install -y docker.io</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> docker</span><br><span class="line"><span class="built_in">sudo</span> usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-后端部署"><a href="#2-后端部署" class="headerlink" title="2. 后端部署"></a>2. 后端部署</h4><p>直接执行 <code>mvn spring-boot:run</code> 可以启动后端，但只适合开发环境，在生产服务器上性能不佳。经典做法是打包成 jar 文件托管。</p>
+<h5 id="（1）打包"><a href="#（1）打包" class="headerlink" title="（1）打包"></a>（1）打包</h5><p>Maven 负责 Spring Boot 项目的<strong>生命周期</strong>。在项目目录下执行 <code>mvn clean package</code>，会在 <code>target</code> 目录下生成一个<strong>可执行的 Fat Jar</strong> <code>app.jar</code>。这是 Java 项目的打包文件，包含所有编译好的 Class 和依赖，启动速度快，资源占用少。</p>
+<p><img src="/images/javaweb-maven-package.png"></p>
+<h5 id="（2）启动"><a href="#（2）启动" class="headerlink" title="（2）启动"></a>（2）启动</h5><p>通过<strong>远程连接</strong>工具将 jar 包传输到服务器上合适的位置，执行 <code>java -jar app.jar</code> 启动。若 8080 端口被监听，则后端部署成功。</p>
+<h4 id="3-前端部署"><a href="#3-前端部署" class="headerlink" title="3. 前端部署"></a>3. 前端部署</h4><p>前端的部署稍麻烦一些。开发环境中，<code>npm run dev</code> 启动的是一个<strong>开发服务器（Dev Server）</strong>，代码未压缩，可以实时编译，但体积巨大。经典做法是打包编译成纯静态文件（压缩后的 <code>.js</code> 和 <code>.css</code>），然后交给 <strong>Nginx</strong> 这样的专业静态服务器托管。</p>
+<h5 id="（1）打包-1"><a href="#（1）打包-1" class="headerlink" title="（1）打包"></a>（1）打包</h5><p>在 Windows 执行 <code>npm run build</code>，<code>dist</code> 文件夹就是打包产物。</p>
+<p><img src="/images/javaweb-dist.png"></p>
+<h5 id="（2）配置-Nginx"><a href="#（2）配置-Nginx" class="headerlink" title="（2）配置 Nginx"></a>（2）配置 Nginx</h5><p><strong>Nginx</strong> 是一款轻量级的<strong>反向代理服务器</strong>，内存占用少、并发能力强。所谓<strong>反向代理</strong>，即服务端的”代理人”：当用户从外网发来请求时，Nginx 统一接收，根据<strong>配置规则</strong>（如请求路径以 <code>/api/</code> 开头）转发至实际处理业务的服务器（如 Spring Boot 后端），并取回结果。整个过程对外界完全透明，用户只知道自己在和 Nginx 通信，感受不到背后真实服务器的存在，以此避免跨域、实现安全隔离。此外 Nginx 的<strong>智能调度</strong>还能均衡负载、加速缓存。</p>
+<p>前面已经在 Linux 中安装了 Nginx，下面开始配置。一是配置静态资源，让 Nginx 知道呈现什么内容；二是配置规则，让 Nginx 知道如何处理用户交互。</p>
+<p>由于 Linux 特殊的目录结构，通过包管理器安装的 Nginx 文件分散在各处。下表为 Nginx 核心文件位置。我们只需关注<strong>站点配置文件</strong>、<strong>站点启用链接</strong>和<strong>默认静态文件根目录</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>文件&#x2F;目录</th>
+<th>典型路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>主配置文件</strong></td>
+<td><code>/etc/nginx/nginx.conf</code></td>
+</tr>
+<tr>
+<td><strong>站点配置文件</strong></td>
+<td><code>/etc/nginx/sites-available/</code></td>
+</tr>
+<tr>
+<td><strong>站点启用链接</strong></td>
+<td><code>/etc/nginx/sites-enabled/</code></td>
+</tr>
+<tr>
+<td><strong>默认静态文件根目录</strong></td>
+<td><code>/var/www/html/</code></td>
+</tr>
+<tr>
+<td><strong>访问日志</strong></td>
+<td><code>/var/log/nginx/access.log</code></td>
+</tr>
+<tr>
+<td><strong>错误日志</strong></td>
+<td><code>/var/log/nginx/error.log</code></td>
+</tr>
+</tbody></table>
+<h6 id="A-静态资源"><a href="#A-静态资源" class="headerlink" title="A.静态资源"></a>A.静态资源</h6><p>通过远程连接工具将打包好的 <code>dist</code> 文件夹传输到合适位置，例如 <code>/root/projects/frontend/dist/</code>，然后通过软链接配置静态资源：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 删除原有的 html 目录（如果存在）</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -rf /var/www/html</span><br><span class="line"><span class="comment"># 2. 创建软链接：让 /var/www/html 指向 dist 目录</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s /root/projects/frontend/dist/ /var/www/html</span><br></pre></td></tr></table></figure>
+
+<h6 id="B-配置规则"><a href="#B-配置规则" class="headerlink" title="B.配置规则"></a>B.配置规则</h6><p>Nginx 的<strong>站点配置文件</strong>都放在 <code>/etc/nginx/sites-available/</code> 下，真正启用的配置则在 <code>/etc/nginx/sites-enabled/</code> 下，通过软链接关联：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 假设已在 /etc/nginx/sites-available/ 下创建了 app.conf 配置文件</span></span><br><span class="line"><span class="comment"># 进入 sites-enabled 目录</span></span><br><span class="line"><span class="built_in">cd</span> /etc/nginx/sites-enabled/</span><br><span class="line"><span class="comment"># 创建软链接（源文件需使用绝对路径）</span></span><br><span class="line"><span class="built_in">ln</span> -s /etc/nginx/sites-available/app.conf app.conf</span><br></pre></td></tr></table></figure>
+<p><code>app.conf</code> 的具体配置内容可根据项目实际情况让 AI 协助编写，主要涉及不同请求路径的处理规则。可用 <code>nginx -t</code> 检查配置文件语法是否正确。</p>
+<h5 id="（3）启动"><a href="#（3）启动" class="headerlink" title="（3）启动"></a>（3）启动</h5><p><strong>systemd</strong> 是 Linux 的<strong>系统和服务管理器</strong>，专门管理系统中运行的各种”服务”（如 Nginx、MySQL、SSH 等）。执行 <code>systemctl start nginx</code> 即可启动 Nginx 服务器，默认占用 <code>80</code> 端口。</p>
+<p>Nginx 常用指令：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>启动</strong></td>
+<td><code>systemctl start nginx</code></td>
+</tr>
+<tr>
+<td><strong>停止</strong></td>
+<td><code>systemctl stop nginx</code></td>
+</tr>
+<tr>
+<td><strong>重启</strong></td>
+<td><code>systemctl restart nginx</code></td>
+</tr>
+<tr>
+<td><strong>平滑重载</strong></td>
+<td><code>systemctl reload nginx</code></td>
+</tr>
+<tr>
+<td><strong>查看状态</strong></td>
+<td><code>systemctl status nginx</code></td>
+</tr>
+</tbody></table>
+<p>现在，访问 <code>localhost:80</code> 即可看到应用。</p>
+<h2 id="三、云服务器部署"><a href="#三、云服务器部署" class="headerlink" title="三、云服务器部署"></a>三、云服务器部署</h2><p>最后，我们需要把项目部署到真正的服务器上，让所有人都能访问。</p>
+<p><strong>云服务器（Elastic Compute Service, ECS）</strong> 比物理服务器更简单高效，无需提前购买昂贵硬件，即可快速创建或删除。购买云服务器时会附赠<strong>公网 IP</strong>。国内可在 <a target="_blank" rel="noopener" href="https://www.aliyun.com/">阿里云</a>、<a target="_blank" rel="noopener" href="https://cloud.tencent.com/">腾讯云</a> 和 <a target="_blank" rel="noopener" href="https://www.jdcloud.com/">京东云</a> 等平台购买。</p>
+<p>云服务器不像 WSL 那样可以集成到 VSCode 中，其余流程则大同小异。下面主要介绍远程连接。</p>
+<h3 id="（一）远程连接"><a href="#（一）远程连接" class="headerlink" title="（一）远程连接"></a>（一）远程连接</h3><p>在 <a target="_blank" rel="noopener" href="https://www.xshell.com/zh/xshell/">XSHELL</a> 下载 XShell，用于远程命令行操作；在 <a target="_blank" rel="noopener" href="https://www.xshell.com/zh/xftp/">XFTP</a> 下载 XFTP，用于可视化文件传输。</p>
+<blockquote>
+<p>这里不得不提，我一开始用的是 <strong>FinalShell</strong>（<a target="_blank" rel="noopener" href="https://www.hostbuf.com/">FinalShell 官网</a>），搜索时误入了几个假官网，下载了木马病毒，偷偷在后台挖矿，一下午 CPU 被干烧了，最后靠 agent 排毒才力挽狂澜。吃一堑，长一智。这类网站通常比真官网还精美，极具迷惑性，下载时一定要小心。</p>
+</blockquote>
+<p>注册账号并进入 XShell 后，新建会话，主机填入服务器的<strong>公网 IP</strong>，确定后输入服务器的账号密码即可远程连接。XFTP 同理。</p>
+<p><img src="/images/javaweb-xshell.png"></p>
+<p>最后，只需把之前在虚拟机上完成的部署流程，在 XShell 和 XFTP 上重新走一遍即可。</p>
+
+    </div>
+
+  </article>
+
+  <!-- ── 上一篇 / 下一篇 ── -->
+  <div class="box-prev-next clearfix">
+    
+    <a class="show pull-left" href="/2026/07/20/%E6%B8%85%E5%92%8C%E7%9A%84%E9%94%99%E8%A7%89/" title="清和的错觉">
+      ◀
+    </a>
+    
+    
+    <a class="show pull-right" href="/2026/02/07/%E4%BB%8E100%E5%9D%97%E9%92%B1%E7%9C%8B%E4%B8%8A%E5%B8%9D%E7%9A%84%E6%9C%AC%E4%BD%93%E8%AE%BA%E8%AF%81%E6%98%8E%E5%8F%91%E5%B1%95/" title="从100块钱看上帝的本体论证明发展">
+      ▶
+    </a>
+    
+  </div>
+
+</div>
+
+<!-- ── 将侧边栏与正文内容对齐 ── -->
+<script>
+(function() {
+  var sidebar = document.querySelector('.post-sidebar');
+  var articleContent = document.querySelector('.article-content');
+  if (sidebar && articleContent) {
+    var top = articleContent.getBoundingClientRect().top + window.scrollY;
+    sidebar.style.top = top + 'px';
+  }
+})();
+</script>
+
+<!-- ── Giscus 评论区 ── -->
+
+<div class="fexo-comments comments-post">
+  <section class="giscus-comments">
+    <script src="https://giscus.app/client.js"
+      data-repo="holycandle/holycandle.github.io"
+      data-repo-id="R_kgDOTGE5Gg"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOTGE5Gs4C_8dE"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="preferred_color_scheme"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+</div>
+
+
+<!-- ── TOC scroll-spy ── -->
+<script>
+(function() {
+  var toc = document.getElementById('toc');
+  if (!toc) return;
+
+  var tocTopOrigin = toc.getBoundingClientRect().top + window.scrollY;
+  var tocLinks = toc.querySelectorAll('.toc-link');
+  var headings = [];
+  tocLinks.forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      var el = document.getElementById(href.slice(1));
+      if (el) headings.push({ el: el, link: link });
+    }
+  });
+  if (!headings.length) return;
+
+  function onScroll() {
+    // Fix/unfix TOC
+    if (window.scrollY > tocTopOrigin) {
+      toc.classList.add('fixed');
+    } else {
+      toc.classList.remove('fixed');
+    }
+
+    // Active heading detection
+    var active = null;
+    for (var i = 0; i < headings.length; i++) {
+      var top = headings[i].el.getBoundingClientRect().top;
+      if (top < 120) {
+        active = headings[i];
+      } else {
+        break;
+      }
+    }
+    if (!active && headings.length) active = headings[0];
+
+    tocLinks.forEach(function(l) { l.classList.remove('active'); });
+    if (active) active.link.classList.add('active');
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+<!-- ── 回到顶部 ── -->
+<a id="backTop" class="back-top show" title="回到顶部">
+  ▲
+</a>
+
+
+  <!-- Mobile modal nav -->
+  <div class="modal" id="modal">
+    <span id="cover" class="cover hide"></span>
+    <div id="modal-dialog" class="modal-dialog hide-dialog">
+      <div class="modal-header">
+        <span id="close" class="btn-close">关闭</span>
+      </div>
+      <hr>
+      <div class="modal-body">
+        <ul class="list-toolbox">
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives" >
+              Blog
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories" >
+              分类
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags" >
+              标签
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about" >
+              关于
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
+
+</body>
+</html>

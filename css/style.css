@@ -1,0 +1,1692 @@
+/* ═══════════════════════════════════════════
+   Jasmine Theme — Global Styles
+   基于 BlueSun (huang-jerryc.com) 设计
+   ═══════════════════════════════════════════ */
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "LXGW WenKai", "Source Serif 4", "Noto Serif SC", "Songti SC", "STSong", serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: inherit;
+}
+
+code, pre, samp {
+  font-family: "SF Mono", Menlo, Monaco, "Courier New", monospace;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ── Horizontal Rule ── */
+hr {
+  max-width: 400px;
+  height: 1px;
+  border: none;
+  background-image: linear-gradient(0deg, transparent, #d5d5d5, transparent);
+  margin: 20px auto;
+}
+
+/* ── Content Wrapper ── */
+.content {
+  width: 720px;
+  max-width: calc(100% - 32px);
+  margin: 40px auto 80px;
+}
+
+.content.content-archive {
+  width: 720px;
+  border-left: 4px solid #f0f0f0;
+}
+
+.content.content-post {
+  width: 800px;
+  border-left: none;
+  margin: 50px auto;
+}
+
+@media screen and (max-width: 767px) {
+  .content.content-post {
+    width: 100%;
+    margin-top: 30px;
+    padding: 0 12px;
+  }
+  .content.content-archive {
+    width: 100%;
+    padding: 0 12px;
+    border-left: none;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .content.content-post {
+    width: 95%;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Homepage
+   ═══════════════════════════════════════════ */
+
+.content-home {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin: 72px auto 48px;
+  padding: 0 16px;
+}
+
+.content-home .avatar img {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.content-home .name {
+  font-size: 26px;
+  font-weight: bold;
+  font-style: normal;
+  line-height: 50px;
+  height: 50px;
+  margin: 0 auto;
+  letter-spacing: -0.03em;
+  color: #000;
+}
+
+.content-home .slogan {
+  display: inline-block;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.85;
+  margin-bottom: 10px;
+  font-family: "LXGW WenKai", "Source Serif 4", "Noto Serif SC", "Songti SC", "STSong", serif;
+  letter-spacing: 0.06em;
+  color: #888;
+}
+
+/* ── Home Nav ── */
+.content-home .nav {
+  color: #bbb;
+  margin-top: 16px;
+}
+
+.content-home .nav .item {
+  display: inline-block;
+}
+
+.content-home .nav .item a {
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+  color: #000;
+  transition: color 0.3s;
+}
+
+.content-home .nav .item a:hover {
+  color: #1abc9c;
+}
+
+.content-home .nav .item:last-child span {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════
+   Recent Posts Timeline (Home)
+   ═══════════════════════════════════════════ */
+
+.content-home-recent {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 96px;
+  padding: 0 16px 0 20px;
+  border-left: 4px solid #f0f0f0;
+}
+
+.content-home-recent .recent-posts-title {
+  font-size: 18px;
+  font-weight: normal;
+  margin: 0 0 24px;
+  padding-left: 20px;
+  color: #000;
+}
+
+.content-home-recent .recent-posts-more {
+  margin: 28px 0 0;
+  padding-left: 20px;
+  text-align: right;
+}
+
+.content-home-recent .recent-posts-more a {
+  font-size: 14px;
+  color: #1abc9c;
+  transition: color 0.2s;
+}
+
+.content-home-recent .recent-posts-more a:hover {
+  color: #169d82;
+}
+
+@media screen and (max-width: 767px) {
+  .content-home-recent {
+    padding-left: 12px;
+    border-left: none;
+  }
+
+  .content-home-recent .recent-posts-title,
+  .content-home-recent .recent-posts-more {
+    padding-left: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Year Titles (Timeline)
+   ═══════════════════════════════════════════ */
+
+.item-year {
+  position: relative;
+  margin-top: 40px;
+  padding-left: 20px;
+}
+
+.item-year:first-child {
+  margin-top: 0;
+}
+
+.item-year::before {
+  position: absolute;
+  top: 50%;
+  left: -2px;
+  width: 10px;
+  height: 10px;
+  margin-top: -9px;
+  margin-left: -5px;
+  content: "";
+  border-radius: 50%;
+}
+
+.item-year a.text-year,
+.item-year .text-year {
+  font-family: "Calligraffitti", cursive;
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+}
+
+/* Year dot colors */
+.item-title-0::before { background: #1abc9c; }
+.item-title-1::before { background: #3498db; }
+.item-title-2::before { background: #9b59b6; }
+.item-title-3::before { background: #e67e22; }
+.item-title-4::before { background: #e74c3c; }
+
+/* ═══════════════════════════════════════════
+   Rich Post Items
+   ═══════════════════════════════════════════ */
+
+.item-post-rich {
+  position: relative;
+  margin-bottom: 32px;
+  padding: 0 0 28px 20px;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.item-post-rich:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.item-post-rich::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: -2px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: #ddd;
+}
+
+.item-post-rich .post-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.item-post-rich .post-date {
+  flex: 0 0 44px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #aaa;
+}
+
+.item-post-rich .post-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-post-rich .post-title {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.45;
+  margin: 0 0 10px;
+  color: #111;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.item-post-rich .post-title:hover {
+  color: #1abc9c;
+}
+
+.item-post-rich .post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+}
+
+.item-post-rich .post-tag {
+  display: inline-block;
+  font-size: 11px;
+  line-height: 1;
+  padding: 3px 8px;
+  border-radius: 3px;
+  color: #888;
+  border: 1px solid #e8e8e8;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.item-post-rich .post-tag:hover {
+  color: #1abc9c;
+  border-color: rgba(26, 188, 156, 0.35);
+}
+
+.item-post-rich .post-excerpt {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.7;
+  margin: 0;
+  padding: 10px 0 0;
+  color: #999;
+  border-top: 1px dashed #e8e8e8;
+}
+
+@media screen and (max-width: 767px) {
+  .item-post-rich {
+    padding-left: 0;
+  }
+
+  .item-post-rich::before {
+    display: none;
+  }
+
+  .item-post-rich .post-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Toolbox — 通用导航盒（复刻 BlueSun）
+   用在 post-header / page-header / archive 中
+   ═══════════════════════════════════════════ */
+
+@keyframes toolboxFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── 文章页右侧边栏：盒子导航 + 文章目录 ── */
+.post-sidebar {
+  position: absolute;
+  left: 50%;
+  margin-left: 420px;
+  top: 50px;
+  width: 180px;
+  z-index: 10;
+}
+
+/* 边栏内的盒子 — 纵向展开，宽度匹配目录 */
+.post-sidebar .post-toolbox {
+  width: 100%;
+  height: auto;
+  background: transparent;
+  border-radius: 0;
+  margin-bottom: 24px;
+}
+
+.post-sidebar .post-toolbox .toolbox-entry {
+  width: auto;
+  padding: 0 18px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.post-sidebar .post-toolbox .toolbox-entry .toolbox-entry-text {
+  display: inline-block;
+}
+
+.post-sidebar .post-toolbox .toolbox-entry .icon-angle-down {
+  display: inline;
+  margin-left: 4px;
+  font-size: 13px;
+}
+
+.post-sidebar .post-toolbox .toolbox-entry .icon-home-text {
+  display: none;
+}
+
+.post-sidebar .post-toolbox .toolbox-entry:hover .toolbox-entry-text,
+.post-sidebar .post-toolbox .toolbox-entry:hover .icon-angle-down {
+  display: inline;
+}
+
+.post-sidebar .post-toolbox .toolbox-entry:hover .icon-home-text {
+  display: none;
+}
+
+/* 边栏盒子展开 — 纵向菜单 */
+.post-sidebar .post-toolbox .list-toolbox {
+  position: static;
+  top: auto;
+  left: auto;
+  display: none;
+  white-space: normal;
+}
+
+.post-sidebar .post-toolbox:hover .list-toolbox {
+  display: block;
+}
+
+.post-sidebar .post-toolbox .list-toolbox .item-toolbox {
+  display: block;
+}
+
+.post-sidebar .post-toolbox .list-toolbox .item-toolbox a {
+  display: block;
+  width: auto;
+  margin-bottom: 6px;
+  padding: 0 18px;
+  text-align: left;
+  line-height: 36px;
+  height: 36px;
+  font-size: 13px;
+}
+
+/* 边栏内 TOC — 回归正常流 */
+.post-sidebar .toc-article {
+  position: static;
+  left: auto;
+  margin-left: 0;
+  top: auto;
+  font-size: 13px;
+}
+
+.post-sidebar .toc-article.fixed {
+  position: fixed;
+  top: 20px;
+  width: 180px;
+}
+
+@media screen and (max-width: 1023px) {
+  .post-sidebar {
+    display: none;
+  }
+}
+
+/* ── 核心工具箱：在 page-header 下生效 ── */
+.toolbox {
+  position: relative;
+  width: 60px;
+  height: 40px;
+  background: #fff;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+/* 非文章页（归档 / 标签 / 关于）：工具箱左移与脊柱线串联 */
+.page-header .toolbox {
+  margin-bottom: 15px;
+  margin-left: -18px;
+}
+
+/* 蓝色盒子 — 展开（不改变容器宽度，避免推动页面） */
+.toolbox:hover .list-toolbox {
+  display: block;
+}
+
+.toolbox:hover .toolbox-entry .icon-angle-down {
+  display: none;
+}
+
+.toolbox:hover .toolbox-entry .toolbox-entry-text {
+  display: none;
+}
+
+.toolbox:hover .toolbox-entry .toolbox-entry-home-text {
+  display: inline-block;
+}
+
+/* ── 入口按钮 ── */
+.toolbox .toolbox-entry {
+  position: relative;
+  font-size: 13px;
+  line-height: 40px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #555;
+  background: #f0f0f0;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.toolbox .toolbox-entry:hover {
+  background: #dfdfdf;
+  cursor: pointer;
+}
+
+/* 默认显示文字，隐藏 ▾ 和 ⌂ */
+.toolbox .toolbox-entry .icon-angle-down {
+  display: none;
+  font-size: 20px;
+  line-height: 40px;
+  font-style: normal;
+}
+
+.toolbox .toolbox-entry .icon-home-text {
+  display: none;
+  font-size: 22px;
+  color: #999;
+  line-height: 40px;
+}
+
+.toolbox .toolbox-entry .icon-home-text svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin: 9px auto 0;
+  fill: #999;
+}
+
+.toolbox .toolbox-entry .toolbox-entry-text {
+  display: inline-block;
+}
+
+/* 默认隐藏 '主页' 文字 */
+.toolbox .toolbox-entry .toolbox-entry-home-text {
+  display: none;
+}
+
+/* hover 入口按钮时：盒子 → 主页 */
+.toolbox .toolbox-entry:hover .icon-angle-down,
+.toolbox .toolbox-entry:hover .toolbox-entry-text,
+.toolbox .toolbox-entry:hover .icon-home-text {
+  display: none;
+}
+
+.toolbox .toolbox-entry:hover .toolbox-entry-home-text {
+  display: inline-block;
+}
+
+/* ── 展开后的导航项列表 ── */
+.toolbox .list-toolbox {
+  position: absolute;
+  top: 0;
+  left: 46px;
+  display: none;
+  white-space: nowrap;
+}
+
+.toolbox .list-toolbox .item-toolbox {
+  display: inline-block;
+}
+
+.toolbox .list-toolbox .item-toolbox a {
+  font-size: 13px;
+  line-height: 40px;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #555;
+  background: #f0f0f0;
+  border-radius: 20px;
+  transition: background 0.3s;
+}
+
+.toolbox .list-toolbox .item-toolbox a:hover {
+  background: #dfdfdf;
+}
+
+/* ── 展开时每个导航项阶梯式渐入（10 项上限） ── */
+.toolbox:hover .list-toolbox li a {
+  animation-name: toolboxFadeIn;
+  animation-duration: 0.6s;
+  animation-fill-mode: both;
+}
+.toolbox:hover .list-toolbox li:nth-child(1) a { animation-delay: 0s; }
+.toolbox:hover .list-toolbox li:nth-child(2) a { animation-delay: 0.08s; }
+.toolbox:hover .list-toolbox li:nth-child(3) a { animation-delay: 0.16s; }
+.toolbox:hover .list-toolbox li:nth-child(4) a { animation-delay: 0.24s; }
+.toolbox:hover .list-toolbox li:nth-child(5) a { animation-delay: 0.32s; }
+.toolbox:hover .list-toolbox li:nth-child(6) a { animation-delay: 0.40s; }
+.toolbox:hover .list-toolbox li:nth-child(7) a { animation-delay: 0.48s; }
+.toolbox:hover .list-toolbox li:nth-child(8) a { animation-delay: 0.56s; }
+.toolbox:hover .list-toolbox li:nth-child(9) a { animation-delay: 0.64s; }
+.toolbox:hover .list-toolbox li:nth-child(10) a { animation-delay: 0.72s; }
+
+/* ── Mobile Toolbox ── */
+.toolbox-mobile {
+  font-size: 20px;
+  line-height: 40px;
+  display: none;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: #555;
+  background: #f0f0f0;
+  border-radius: 50%;
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  .toolbox-mobile {
+    display: block;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   TOC (Table of Contents) — Collapsible Tree
+   ═══════════════════════════════════════════ */
+
+.toc-article {
+  position: absolute;
+  left: 50%;
+  margin-left: 420px;
+  top: 200px;
+  font-size: 13px;
+}
+
+.toc-article.fixed {
+  position: fixed;
+  top: 20px;
+}
+
+.toc-article .toc-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.toc-article ol.toc,
+.toc-article ol.toc-children {
+  padding-left: 0;
+  list-style: none !important;
+  list-style-type: none !important;
+  line-height: 1.8;
+}
+
+.toc-article ol.toc-children {
+  padding-left: 12px;
+  overflow: hidden;
+  transition: max-height 0.25s ease, opacity 0.2s ease;
+}
+
+.toc-article ol.toc-children.collapsed {
+  max-height: 0 !important;
+  opacity: 0;
+}
+
+.toc-article .toc-item {
+  margin: 2px 0;
+  position: relative;
+  max-width: 168px;
+}
+
+.toc-article .toc-link {
+  color: #888;
+  transition: color 0.2s;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.toc-article .toc-link:hover {
+  color: #555;
+}
+
+.toc-article .toc-link.active {
+  color: #111;
+  font-weight: bold;
+}
+
+/* Toggle button */
+.toc-article .toc-toggle {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  font-size: 10px;
+  cursor: pointer;
+  color: #bbb;
+  margin-right: 2px;
+  vertical-align: middle;
+  user-select: none;
+  transition: transform 0.2s ease, color 0.2s;
+  flex-shrink: 0;
+}
+
+.toc-article .toc-toggle:hover {
+  color: #666;
+}
+
+.toc-article .toc-toggle.collapsed {
+  transform: rotate(-90deg);
+}
+
+/* Item wrapper for toggle + link alignment */
+.toc-article .toc-item-inner {
+  display: flex;
+  align-items: baseline;
+}
+
+@media screen and (max-width: 1023px) {
+  .toc-article {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Article Header
+   ═══════════════════════════════════════════ */
+
+.article-header {
+  margin-bottom: 40px;
+}
+
+.content.content-post.CENTER .article-header {
+  text-align: center;
+}
+
+.article-header .post-title {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0 0 14px;
+  color: #000;
+}
+
+/* ── Meta Row 1: date / author / category ── */
+.article-header .article-meta {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  margin-top: 8px;
+  margin-bottom: 14px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.article-header .article-meta .meta-item {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 2px;
+}
+
+.article-header .article-meta .meta-sep {
+  margin: 0 6px;
+  color: #ccc;
+  font-size: 11px;
+}
+
+.article-header .article-meta .meta-icon {
+  display: inline-block;
+  margin-right: 4px;
+  font-style: normal;
+  font-size: 13px;
+}
+
+.article-header .article-meta a {
+  color: #999;
+  transition: color 0.2s;
+}
+
+.article-header .article-meta a.article-category-link {
+  color: #999;
+}
+
+.article-header .article-meta a.article-category-link:hover {
+  color: #1abc9c;
+}
+
+/* ── Meta Row 2: tag pills ── */
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.article-tag {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1;
+  padding: 5px 12px;
+  border-radius: 14px;
+  color: #888;
+  background: #f6f6f6;
+  border: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.article-tag:hover {
+  color: #1abc9c;
+  border-color: rgba(26, 188, 156, 0.3);
+  background: #f9fdfb;
+}
+
+@media screen and (max-width: 767px) {
+  .article-header .post-title {
+    font-size: 24px;
+  }
+
+  .article-header .article-meta {
+    justify-content: center;
+  }
+
+  .article-tags {
+    justify-content: center;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Article Content
+   ═══════════════════════════════════════════ */
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6 {
+  font-weight: normal;
+  margin: 28px 0 15px;
+  color: #000;
+  scroll-margin-top: 80px;
+}
+
+.article-content h1 { font-size: 24px; }
+.article-content h2 { font-size: 20px; }
+.article-content h3 { font-size: 16px; }
+.article-content h4 { font-size: 14px; }
+
+.article-content a {
+  color: #1abc9c;
+}
+
+.article-content a:hover {
+  color: #169d82;
+}
+
+.article-content strong {
+  color: #000;
+}
+
+.article-content p {
+  font-size: 16px;
+  line-height: 2em;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.article-content ol,
+.article-content ul {
+  font-size: 16px;
+  color: #444;
+}
+
+.article-content ul li {
+  position: relative;
+  padding-left: 14px;
+}
+
+.article-content ul li::before {
+  position: absolute;
+  top: 12px;
+  left: -2px;
+  width: 4px;
+  height: 4px;
+  margin-left: 2px;
+  content: "";
+  border-radius: 50%;
+  background: #bbb;
+}
+
+.article-content p + ul {
+  margin-top: -10px;
+}
+
+.article-content ul + p {
+  margin-top: 25px;
+}
+
+.article-content ol {
+  padding-left: 20px;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Code ── */
+.article-content code {
+  padding: 3px 6px;
+  vertical-align: middle;
+  border-radius: 4px;
+  background: #f7f7f7;
+  color: #e96900;
+  font-size: 0.88em;
+  word-break: break-word;
+}
+
+/* Hexo highlight figures */
+.article-content figure.highlight {
+  margin: 1.5em 0;
+}
+
+.article-content figure.highlight table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.article-content figure.highlight table tbody,
+.article-content figure.highlight table tr,
+.article-content figure.highlight table td.code {
+  display: block;
+}
+
+.article-content pre {
+  margin: 1.5em 0;
+  padding: 16px;
+  overflow-x: auto;
+  border-radius: 6px;
+  background: #f7f7f7;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.article-content figure.highlight pre {
+  margin: 0;
+  padding: 16px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.article-content pre code {
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  font-size: 0.9em;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ── Syntax Highlighting ── */
+.article-content figure.highlight .comment,
+.article-content figure.highlight .quote { color: #8b949e; font-style: italic; }
+.article-content figure.highlight .keyword { color: #cf222e; font-weight: bold; }
+.article-content figure.highlight .built_in { color: #6f42c1; }
+.article-content figure.highlight .literal,
+.article-content figure.highlight .string { color: #0a3069; }
+.article-content figure.highlight .number { color: #0550ae; }
+.article-content figure.highlight .variable,
+.article-content figure.highlight .params { color: #e36209; }
+.article-content figure.highlight .function,
+.article-content figure.highlight .title { color: #6f42c1; }
+.article-content figure.highlight .attr,
+.article-content figure.highlight .attribute { color: #0550ae; }
+.article-content figure.highlight .symbol,
+.article-content figure.highlight .meta { color: #cf222e; }
+.article-content figure.highlight .type { color: #8250df; }
+.article-content figure.highlight .selector-tag,
+.article-content figure.highlight .selector-class { color: #0550ae; }
+.article-content figure.highlight .regexp { color: #0a3069; }
+.article-content figure.highlight .deletion { color: #cf222e; background: #ffebe9; }
+.article-content figure.highlight .addition { color: #1a7f37; background: #dafbe1; }
+
+/* ── Blockquote ── */
+.article-content blockquote {
+  margin: 0;
+  padding: 2px 30px;
+  color: #444;
+  border-left: 6px solid #eee;
+  background: #fafafa;
+}
+
+/* ── Table ── */
+.article-content table {
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #dfdfdf;
+  margin-bottom: 30px;
+  border-collapse: collapse;
+}
+
+.article-content td,
+.article-content th {
+  line-height: 1.5;
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+  color: #444;
+  border: 1px solid #dfdfdf;
+  font-size: 16px;
+}
+
+.article-content th {
+  font-weight: bold;
+}
+
+/* ── Horizontal Rule ── */
+.article-content hr {
+  margin: 2.5em auto;
+  max-width: 120px;
+  border: none;
+  border-top: 1px solid #ddd;
+  background: none;
+}
+
+@media screen and (max-width: 767px) {
+  .article-content,
+  .article-header .post-title {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Back to Top
+   ═══════════════════════════════════════════ */
+
+a.back-top {
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  background: #f0f0f0;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  line-height: 34px;
+  text-align: center;
+  display: none;
+  color: #999;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  z-index: 9;
+}
+
+a.back-top.show {
+  display: block;
+}
+
+a.back-top:hover {
+  background: #dfdfdf;
+  color: #666;
+}
+
+@media screen and (max-width: 768px) {
+  a.back-top {
+    display: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Prev / Next Navigation
+   ═══════════════════════════════════════════ */
+
+.box-prev-next {
+  margin-top: -20px;
+  margin-bottom: 70px;
+}
+
+.box-prev-next a {
+  display: inline-block;
+  text-align: center;
+  line-height: 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #dfdfdf;
+  color: #ccc;
+  font-size: 16px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.box-prev-next a:hover {
+  color: #999;
+  border-color: #bbb;
+}
+
+.box-prev-next a.pull-left {
+  float: left;
+}
+
+.box-prev-next a.pull-right {
+  float: right;
+}
+
+.box-prev-next a.hide {
+  display: none !important;
+}
+
+.box-prev-next a.show {
+  display: block !important;
+}
+
+/* ═══════════════════════════════════════════
+   Modal (Mobile Navigation)
+   ═══════════════════════════════════════════ */
+
+.modal .cover {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal .cover.hide {
+  display: none;
+}
+
+.modal hr {
+  max-width: 320px;
+  height: 1px;
+  margin: 0 auto 10px;
+  border: none;
+  background-image: linear-gradient(0deg, transparent, #dcdcdc, transparent);
+}
+
+.modal-dialog {
+  position: fixed;
+  z-index: 11;
+  bottom: 0;
+  width: 100%;
+  height: 140px;
+  transition: transform 0.3s ease-out;
+  background: #fefefe;
+}
+
+.modal-dialog.show-dialog {
+  transform: translate3d(0, 0, 0);
+}
+
+.modal-dialog.hide-dialog {
+  transform: translate3d(0, 100%, 0);
+}
+
+.modal-header {
+  font-size: 13px;
+  text-align: center;
+  height: 55px;
+}
+
+.modal-header .btn-close {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  line-height: 40px;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: #555;
+  background: #f0f0f0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.modal-body {
+  height: 60px;
+  display: table;
+  text-align: center;
+  width: 100%;
+}
+
+.modal-body .list-toolbox {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-body .list-toolbox .item-toolbox {
+  display: inline-block;
+}
+
+.modal-body .list-toolbox .item-toolbox a {
+  font-size: 13px;
+  line-height: 40px;
+  display: inline-block;
+  height: 40px;
+  margin: 5px 2px;
+  text-align: center;
+  color: #555;
+  background: #f0f0f0;
+  border-radius: 20px;
+  transition: background 0.3s;
+}
+
+.modal-body .list-toolbox .item-toolbox a.CIRCLE {
+  width: 40px;
+}
+
+.modal-body .list-toolbox .item-toolbox a:hover {
+  background: #dfdfdf;
+}
+
+/* ═══════════════════════════════════════════
+   Giscus Comments
+   ═══════════════════════════════════════════ */
+
+.fexo-comments {
+  margin: 0 auto 60px;
+}
+
+.fexo-comments.comments-post {
+  width: 800px;
+}
+
+@media screen and (max-width: 767px) {
+  .fexo-comments {
+    padding: 10px;
+  }
+  .fexo-comments.comments-post {
+    width: 100%;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Archive Page Header
+   ═══════════════════════════════════════════ */
+
+.page-header {
+  position: relative;
+  margin-bottom: 30px;
+  background: #fff;
+}
+
+/* 用白色伪元素遮盖父级脊柱线，使脊柱从页面标题下方才开始 */
+.page-header::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: #fff;
+}
+
+.page-header .box-blog-info {
+  display: block;
+}
+
+.page-header .box-blog-info .avatar,
+.page-header .box-blog-info .info {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.page-header .box-blog-info img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.page-header .box-blog-info .info .name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 0 10px;
+  color: #000;
+}
+
+.page-header .box-blog-info .info .slogan {
+  display: inline-block;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.85;
+  margin: 0 0 0 10px;
+  font-family: "LXGW WenKai", "Source Serif 4", "Noto Serif SC", "Songti SC", "STSong", serif;
+  letter-spacing: 0.06em;
+  color: #888;
+}
+
+@media screen and (max-width: 767px) {
+  .page-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .page-header .box-blog-info .avatar {
+    display: block;
+  }
+
+  .page-header .box-blog-info .avatar img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .page-header .box-blog-info .info .name {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 8px;
+  }
+
+  .page-header .box-blog-info .info .slogan {
+    display: block;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Breadcrumb (Category / Tag pages)
+   ═══════════════════════════════════════════ */
+
+.breadcrumb {
+  width: 100px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  margin-left: -52px;
+  color: #d0d0d0;
+  text-align: center;
+}
+
+.breadcrumb .location {
+  margin-left: 0;
+  font-size: 13px;
+}
+
+.breadcrumb i {
+  font-size: 26px;
+  color: #dfdfdf;
+}
+
+@media screen and (max-width: 767px) {
+  .breadcrumb {
+    display: none;
+  }
+}
+
+/* ── Archive body timeline (继承父级 content 左竖线) ── */
+.archive-body {
+  padding-left: 20px;
+}
+
+/* 归档页：圆点居中脊柱线（containing block 距脊柱 24px） */
+.content.content-archive .item-year::before {
+  left: -22px;
+  margin-left: -5px;
+}
+.content.content-archive .archive-body .item-post-rich::before {
+  left: -22px;
+  margin-left: -4px;
+}
+
+/* 标签页：圆点居中脊柱线（containing block 距脊柱 4px） */
+.content.content-tag .item-category-name::before {
+  left: -2px;
+  margin-left: -5px;
+}
+.content.content-tag .item-post::before {
+  left: -2px;
+  margin-left: -4px;
+}
+
+@media screen and (max-width: 767px) {
+  .archive-body {
+    padding-left: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   About Page (复刻 BlueSun about-list)
+   ═══════════════════════════════════════════ */
+
+.content.content-about {
+  width: 500px;
+  border-left: 4px solid #f0f0f0;
+  margin-bottom: 100px;
+}
+
+.content.content-about .about-list {
+  margin-left: -2px;
+}
+
+.content.content-about .about-list .about-item {
+  position: relative;
+  padding: 10px 0;
+}
+
+.content.content-about .about-list .about-item .text {
+  padding-left: 20px;
+}
+
+.content.content-about .dot {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  margin-left: -5px;
+  border-radius: 50%;
+}
+
+.content.content-about .dot.dot-0 { background: #1abc9c; }
+.content.content-about .dot.dot-1 { background: #3498db; }
+.content.content-about .dot.dot-2 { background: #9b59b6; }
+.content.content-about .dot.dot-3 { background: #e67e22; }
+.content.content-about .dot.dot-4 { background: #e74c3c; }
+
+.content.content-about a.text-value-url {
+  color: #1abc9c;
+}
+
+.content.content-about a.text-value-url:hover {
+  color: #169d82;
+}
+
+@media screen and (max-width: 767px) {
+  .content.content-about {
+    width: 100%;
+    padding: 0 12px;
+    border-left: none;
+  }
+  .content.content-about .about-list {
+    margin-left: 0;
+    border-left: 4px solid #f9f9f9;
+  }
+  .content.content-about .about-list .dot {
+    margin-left: -7px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Category Box & Tag Box (pill style)
+   ═══════════════════════════════════════════ */
+
+.category-box,
+.tag-box {
+  position: relative;
+  margin-bottom: 30px;
+  margin-left: -20px;
+}
+
+.category-box .category-title,
+.tag-box .tag-title {
+  font-size: 13px;
+  line-height: 40px;
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  text-align: center;
+  color: #555;
+  border-radius: 50%;
+  background: #f0f0f0;
+}
+
+.category-box .category-list,
+.tag-box .tag-list {
+  margin-left: 50px;
+}
+
+.category-box .category-list .category-item,
+.tag-box .tag-list .tag-item {
+  font-size: 12px;
+  line-height: 30px;
+  display: inline-block;
+  height: 30px;
+  margin: 5px 3px;
+  padding: 0 12px;
+  color: #999;
+  border-radius: 15px;
+  background: #f6f6f6;
+  transition: color 0.2s, background 0.2s;
+}
+
+.category-box .category-list .category-item:hover,
+.tag-box .tag-list .tag-item:hover {
+  color: #333;
+  background: #f0f0f0;
+}
+
+.category-box .category-list .category-item .category-size,
+.tag-box .tag-list .tag-item .tag-size {
+  font-family: "Calligraffitti", cursive;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 767px) {
+  .category-box,
+  .tag-box {
+    margin-left: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Content Category / Tag page
+   ═══════════════════════════════════════════ */
+
+.content.content-tag,
+.content.content-category {
+  width: 720px;
+  margin-bottom: 100px;
+  border-left: 4px solid #f0f0f0;
+}
+
+/* 标签页 & 分类页：圆点居中脊柱线 */
+.content.content-tag .item-category-name::before {
+  left: -2px;
+  margin-left: -5px;
+}
+.content.content-tag .item-post::before {
+  left: -2px;
+  margin-left: -4px;
+}
+.content.content-category .item-category-name::before {
+  left: -2px;
+  margin-left: -5px;
+}
+.content.content-category .item-post::before {
+  left: -2px;
+  margin-left: -4px;
+}
+
+@media screen and (max-width: 767px) {
+  .content.content-tag,
+  .content.content-category {
+    width: 100%;
+    padding: 0 12px;
+    border-left: none;
+  }
+  .content.content-tag .list-post .item-category-name::before,
+  .content.content-tag .list-post .item-post::before,
+  .content.content-category .list-post .item-category-name::before,
+  .content.content-category .list-post .item-post::before {
+    display: none;
+  }
+  .content.content-tag .list-post .item-category-name,
+  .content.content-tag .list-post .item-post,
+  .content.content-category .list-post .item-category-name,
+  .content.content-category .list-post .item-post {
+    padding-left: 0;
+  }
+}
+
+/* ── Simple post list (for category/tag pages) ── */
+
+.list-post {
+  line-height: 2.8em;
+}
+
+.item-category-name {
+  position: relative;
+  margin-top: 40px;
+  padding-left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+}
+
+.item-category-name .category-count {
+  font-family: "Calligraffitti", cursive;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Reuse year dot colors for category headers */
+.item-category-name::before {
+  position: absolute;
+  top: 50%;
+  left: -2px;
+  width: 10px;
+  height: 10px;
+  margin-top: -9px;
+  margin-left: -5px;
+  content: "";
+  border-radius: 50%;
+}
+
+.item-category-name.item-title-0::before { background: #1abc9c; }
+.item-category-name.item-title-1::before { background: #3498db; }
+.item-category-name.item-title-2::before { background: #9b59b6; }
+.item-category-name.item-title-3::before { background: #e67e22; }
+.item-category-name.item-title-4::before { background: #e74c3c; }
+
+/* Simple post item (date + title, no excerpt) */
+.item-post {
+  position: relative;
+  padding-left: 20px;
+}
+
+.item-post::before {
+  position: absolute;
+  top: 50%;
+  left: -2px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  margin-left: -4px;
+  content: "";
+  border-radius: 50%;
+  background: #ddd;
+}
+
+.item-post .post-date {
+  font-size: 12px;
+  display: inline-block;
+  color: #888;
+  margin-right: 12px;
+}
+
+.item-post .post-title {
+  font-size: 16px;
+  font-weight: normal;
+  position: relative;
+  display: inline-block;
+  color: #333;
+  vertical-align: middle;
+  max-width: 430px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: color 0.3s;
+}
+
+.item-post .post-title:hover {
+  color: #1abc9c;
+}
+
+@media screen and (max-width: 767px) {
+  .content.content-tag .list-post {
+    border-left: none;
+  }
+
+  .content.content-tag .list-post .item-category-name::before,
+  .content.content-tag .list-post .item-post::before {
+    display: none;
+  }
+
+  .content.content-tag .list-post .item-category-name,
+  .content.content-tag .list-post .item-post {
+    padding-left: 0;
+  }
+}

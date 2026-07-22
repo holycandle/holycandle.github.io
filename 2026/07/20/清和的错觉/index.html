@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>清和的错觉 | Horizon &amp; Jasmine</title>
+
+  
+  
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="清和的错觉">
+  <meta property="og:url" content="https://holycandle.github.io/2026/07/20/%E6%B8%85%E5%92%8C%E7%9A%84%E9%94%99%E8%A7%89/">
+  <meta property="og:site_name" content="Horizon &amp; Jasmine">
+  
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕯️</text></svg>">
+
+  <!-- Fonts: LXGW WenKai via jsDelivr (accessible in China), Calligraffitti via Google Fonts -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/personal.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="post-page">
+
+  
+
+<!-- ── 移动端底部导航按钮 ── -->
+<span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+
+<!-- ── 右侧边栏：盒子导航 + 文章目录 ── -->
+<aside class="post-sidebar">
+  <div class="toolbox post-toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down">▾</i>
+      <span class="icon-home-text"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
+    </a>
+    <ul class="list-toolbox">
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/archives" >
+          Blog
+        </a>
+      </li>
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/categories" >
+          分类
+        </a>
+      </li>
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/tags" >
+          标签
+        </a>
+      </li>
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/about" >
+          关于
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+  
+</aside>
+
+<!-- ── 文章内容区 ── -->
+
+<!-- ═══════════════════════════════════════════
+   TOC: 将 Hexo 扁平 TOC 重建为可折叠树
+   ═══════════════════════════════════════════ -->
+<script>
+(function() {
+  var toc = document.getElementById('toc');
+  if (!toc) return;
+
+  var flatOl = toc.querySelector('ol.toc');
+  if (!flatOl) return;
+
+  // 1. 解析扁平 TOC，构建层级树
+  var flatItems = Array.from(flatOl.querySelectorAll('li.toc-item'));
+  if (!flatItems.length) return;
+
+  function getLevel(li) {
+    var match = (li.className || '').match(/toc-level-(\d+)/);
+    return match ? parseInt(match[1], 10) : 2;
+  }
+
+  // 构建树节点 { level, link, text, children }
+  var root = { level: 1, children: [] };
+  var stack = [root];  // 祖先链，stack[stack.length-1] 是当前父节点
+
+  flatItems.forEach(function(li) {
+    var level = getLevel(li);
+    var link = li.querySelector('a.toc-link');
+    var href = link ? link.getAttribute('href') : '';
+    var text = link ? (link.querySelector('.toc-text') ? link.querySelector('.toc-text').textContent : link.textContent) : '';
+
+    var node = { level: level, href: href, text: text, children: [] };
+
+    // 找到父节点：向上找 stack 中 level < node.level 的最近节点
+    while (stack.length > 1 && stack[stack.length - 1].level >= level) {
+      stack.pop();
+    }
+    var parent = stack[stack.length - 1];
+    parent.children.push(node);
+    stack.push(node);
+  });
+
+  // 2. 从树构建 DOM
+  function buildOl(children, parentLevel) {
+    if (!children.length) return null;
+    var ol = document.createElement('ol');
+    ol.className = 'toc-children';
+    ol.style.listStyle = 'none';
+    ol.style.paddingLeft = '0';
+    children.forEach(function(node) {
+      var li = document.createElement('li');
+      li.className = 'toc-item toc-level-' + node.level;
+
+      var inner = document.createElement('div');
+      inner.className = 'toc-item-inner';
+
+      var hasChildren = node.children.length > 0;
+
+      // Toggle 按钮（仅对有子项的节点）
+      if (hasChildren) {
+        var toggle = document.createElement('span');
+        toggle.className = 'toc-toggle';
+        toggle.textContent = '▾';
+        toggle.setAttribute('aria-expanded', 'true');
+        inner.appendChild(toggle);
+      } else {
+        // 占位，保持对齐
+        var spacer = document.createElement('span');
+        spacer.className = 'toc-toggle';
+        spacer.style.cssText = 'visibility:hidden;';
+        inner.appendChild(spacer);
+      }
+
+      var a = document.createElement('a');
+      a.className = 'toc-link';
+      a.href = node.href;
+      a.textContent = node.text;
+      inner.appendChild(a);
+      li.appendChild(inner);
+
+      // 递归构建子级
+      var childOl = buildOl(node.children, node.level);
+      if (childOl) {
+        li.appendChild(childOl);
+      }
+
+      ol.appendChild(li);
+    });
+    return ol;
+  }
+
+  var newOl = buildOl(root.children, 1);
+
+  // 3. 替换扁平 TOC
+  if (newOl) {
+    newOl.classList.add('toc');
+    // 根 ol 不需要 toc-children 的 overflow:hidden，否则会裁剪内容
+    newOl.classList.remove('toc-children');
+    newOl.style.listStyle = 'none';
+    newOl.style.paddingLeft = '0';
+    flatOl.parentNode.replaceChild(newOl, flatOl);
+
+    // 辅助：向上更新所有祖先 ol.toc-children 的 max-height
+    function updateAncestorHeights(childOl) {
+      childOl.offsetHeight; // 强制子级完成布局
+      var parentLi = childOl.closest('li.toc-item');
+      while (parentLi) {
+        var ancestorOl = parentLi.closest('ol.toc-children');
+        if (!ancestorOl || ancestorOl === newOl) break;
+        if (!ancestorOl.classList.contains('collapsed')) {
+          ancestorOl.style.maxHeight = ancestorOl.scrollHeight + 'px';
+        }
+        parentLi = ancestorOl.closest('li.toc-item');
+      }
+    }
+
+    // 4. 绑定折叠事件
+    newOl.addEventListener('click', function(e) {
+      var toggle = e.target.closest('.toc-toggle');
+      if (!toggle) return;
+      var li = toggle.closest('.toc-item');
+      if (!li) return;
+      var childOl = li.querySelector(':scope > ol.toc-children');
+      if (!childOl) return;
+
+      var isCollapsed = childOl.classList.contains('collapsed');
+      if (isCollapsed) {
+        // ── 展开 ──
+        // 优先使用折叠时保存的高度；否则临时解除约束后测量
+        var targetH = parseFloat(childOl.dataset.expandedH);
+        if (!targetH) {
+          childOl.classList.remove('collapsed');
+          childOl.style.maxHeight = 'none';
+          childOl.style.overflow = 'visible';
+          targetH = childOl.scrollHeight;
+          childOl.classList.add('collapsed');
+          childOl.style.overflow = '';
+        }
+        childOl.classList.remove('collapsed');
+        childOl.style.maxHeight = targetH + 'px';
+        childOl.style.overflow = '';
+        updateAncestorHeights(childOl);
+        toggle.classList.remove('collapsed');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.textContent = '▾';
+      } else {
+        // ── 折叠 ──
+        var expandedH = childOl.scrollHeight;
+        childOl.dataset.expandedH = expandedH;
+        childOl.style.maxHeight = expandedH + 'px';
+        childOl.offsetHeight; // 锁定过渡起点
+        childOl.classList.add('collapsed');
+        // 不设 inline max-height:0，由 CSS .collapsed !important 接管
+        updateAncestorHeights(childOl);
+        toggle.classList.add('collapsed');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = '▸';
+      }
+    });
+
+    // 初始化：所有展开
+    var allChildren = newOl.querySelectorAll('ol.toc-children');
+    allChildren.forEach(function(ol) {
+      ol.style.maxHeight = ol.scrollHeight + 'px';
+    });
+  }
+})();
+</script>
+<div class="content content-post CENTER">
+  <article id="post-清和的错觉" class="article" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="article-header">
+      <h1 class="post-title">清和的错觉</h1>
+
+      <div class="article-meta">
+        <span class="meta-item">
+          <i class="meta-icon">&#x1F4C5;</i>
+          <span>2026.07.20</span>
+        </span>
+
+        
+        
+        <span class="meta-sep">·</span>
+        <span class="meta-item">
+          <i class="meta-icon">&#x270D;</i>
+          <span>okiso</span>
+        </span>
+        
+
+        
+        <span class="meta-sep">·</span>
+        <span class="meta-item">
+          <i class="meta-icon">&#x1F4C2;</i>
+          
+          <a class="article-category-link" href="/categories/#%E9%9A%8F%E5%BF%83%E5%BD%95">随心录</a>
+          
+        </span>
+        
+      </div>
+
+      
+      <div class="article-tags">
+        
+        <a class="article-tag" href="/tags/#%E4%B9%90%E6%B8%85">乐清</a>
+        
+      </div>
+      
+    </header>
+
+    <div class="article-content">
+      <p>这几天相当的热，我都没怎么睡好。下午要和朋友去看电影，于是上午还是照常学习JavaWeb。在乐清这批友人中，也只有我还在继续学计算机，而他是核物理专业，这几天刚从研究所实习回来。乐清依旧非常干净，可以把视野放到很远的蓝天和麦田。到市区仍然是那条老路，不知道骑过多少次，我不喜欢打车和坐公交，认为健康而自由的交通方式是正常的。曾经骑车上下学是且听风吟般的轻松，午后到校我把烦恼和汗水一起挥洒，夜路回家心跳的悸动盖过白日的喧嚣。</p>
+<p>跟他认识很多年了，初中时我自己在学python，听说班里有个同学编程非常厉害，于是我就去找他交流，慢慢就熟起来了。初二时他带来一本谭浩强的红皮《C程序设计》，我借来看，一发不可收拾，才知道编程是这么一回事，也许算是真正的Hello World。其实那本书写的不好，是很老旧的教材，但启迪人心的读物不一定要尽善尽美。</p>
+<p>晚上我在他家吃饭，饭后我们和叔叔阿姨一起去清和公园散步。清和的傍晚没有晚上好看，天空灰蒙蒙的一片。之前我们散步都是在晚上，清和湖面波光粼粼宛如星河流转，非常美。久别重逢，无非谈些不着边际的话题，有一搭没一搭地聊天。我想起当时在食堂他给了唠了很久AI不会取代人类，因为AI的意识是“格式塔”的结构，当时我就听得云里雾里。但这学期使用AI很多了，对AI也算有了大概的了解，想请他再讲讲。他说哎呀我当时是玩《群星》的时候了解的，现在差不多都忘了，讲不清楚。<br><img src="/images/bc2db15a51f8577efadee7c71007170b.jpg"><br>我向来觉得目前AI绝对还比不上人类的智慧，这与技术的发展无关。现在已经有语言大模型，视觉大模型，还有嗅觉、听觉、具身智能等等，总之是在模仿人类，但底层仍然需要人类的经验与感觉作为数据训练。比如说，具身智能接过我手中的水，也许可以识别出它是一瓶水，滔滔不绝地讲起水是生命的源泉，也许可以精确测算出它有多重，用合适的功率扔起，再精准地接住。</p>
+<p>但是它不知道，水首先是一种清凉、流动、温润的感觉，而不是水分子。它不知道，重力是一种需要对抗的阻碍感，扔起它需要肌肉的轻微拉伸，一刹那对失控的恐惧，还有接住它时心里闪过的悸动。它可以排列音符，演奏一段舒心的夜曲，却不知道，为什么恰恰这几个和弦是喜悦的，而那几个和弦又让人悲伤……AI仍然坐在轮椅上，它可以把人类千年的历史与经验训练成一个发达的大脑，而自己的灵魂却是瘫痪无力的，它的经验是人类嚼碎了喂给它的，它的大脑裹满了人类的唾液。马克思说，贩卖矿物的商人只看到矿物的商业价值，而看不到矿物的美和特性，因为他没有矿物学的感觉。而AI这两种感觉都不会有，因为它的生命是僵死的，既没有经营商品的经验，也没有看见珍奇宝石的兴奋，没有劳动的能力，没有存在的压力，没有时间的连续，没有死亡的恐惧，没有人类对有限性的焦虑与匮乏，也因此没有有限性带来的力量。<br><img src="/images/4d59765d16eb67642811865b7e6d6195.jpg"><br>上学期我向教马原的尤老师请教过一个类似的问题，我说如果一个机器人能完美地模仿你一位朋友的行为举止，那么它能够完美替代他吗？当然这种模仿初步只能是感性上的……我觉得是不可能的。但是我很难搞懂心灵在其中扮演一种怎么样的地位？它是如何运作的，以至于这种基于感性材料上的模仿并非完美。</p>
+<p>这里实际上是在问，有没有一种外在于我而又内在于我的东西存在呢，它不属于我的物质运动，于是外在于我，但它又确实能让我活过来，使我的运动成为可能，那么便内在于我。这就是心灵啊。如果不承认心灵的存在，像一些机械唯物主义所看到的，世界变成了一个乐高城堡，生活变成了搭积木，那么那些游离在错综复杂的因果链条之外的是什么呢？</p>
+<p>走了这么久，我的臀部居然还不怎么酸痛，看来这一学期的锻炼是有用的。如果人少的话，在这里骑一圈估计会很舒服。天色渐渐暗了，我真想写一首诗，或者填个什么词，但我现在还没找回那样的才情。我回想曾经写过的东西，仿佛都带着一种悲伤的底色，倒不如说悲伤的文字总是比快乐的文字更容易写下，因为创伤是知识的源泉，预示着灵感的迸发。当我们遭受创伤，会不由自主地反复在脑中重演那些经历，试图回溯锚定某个原因。为什么如此渴望创伤的确定性？因为创伤的不确定性比创伤本身更加“创伤”。它可以莫名其妙，在错杂矛盾中显化为一种纯粹的暴力。</p>
+<p>而锚定的过程即生存体系重构的时刻。如果愿意承认这样的虚无，直接作为那个创伤去行动。此时创伤的原因是什么，也即追问我的存在根据是什么？<br><img src="/images/fe8954c4a89149ae0cef662ad6530545.jpg"><br>后来了解到海德格尔的“向死而生”，主体的更迭就是更迭的主体。对啊，这便是一种生存论者的自然姿态——应当意识到人首先是时间性的存在，感到每一刻的自我都在消逝，同时每一刻的自我又在生成——什么离开了我？只有现在的我知道，而现在却是转瞬即释的，把握不定的，只有未来能够确定。所以是未来决定了现在，未来把我们牵引到同一个现实，让我们回溯性地把握了现在。生活是敞开的，过去可以由未来改变的。</p>
+<p>这里只有一种连续性，伦理的连续性，也即社会关系的连续性，需要我们负责。朋友喜欢打csgo，我说这就像总有个哥们站在你旁边，说兄弟你这打得也太菜了，换我来吧！玩家都这么换下去了，地图没变，敌人没变，队友没变。</p>
+<p>初中的时候寝室隔床的哥们突然开始写起了日记，我觉得有意思，也开始写日记，一开始我当史书去写，记流水帐。后面情绪越来越多，一不开心就写，因为悲伤的欲望总是比快乐的欲望更容易流到纸面，快乐的时候不会想着写日记。只是我逐渐意识到，写日记是很奢侈的。更不应该在现实不利时频繁记录。因为这实际是把未来的可能性透支到现在，把过去的事按着现在的状态理解一遍，最后要敲定一个解释。有人说这是掌握自己的“叙事权”，但我想这是过早地使用了“叙事权”，写出的故事却往往不是很好。这样的透支，使未来的可能性几近枯萎，过去的可能性也因此封闭了。<br><img src="/images/2bf1cf22e46385e351197a536cfafc09.jpg"><br>黑格尔说过类似的话，一个灰色的回忆，怎能抗衡现在的生动与自由。可是有的人为了让自己感到没有被骗，会心甘情愿地再被骗一次，体验一种倒错的错觉：居然还有人在骗我，那不是说明我还握有筹码吗？</p>
+
+    </div>
+
+  </article>
+
+  <!-- ── 上一篇 / 下一篇 ── -->
+  <div class="box-prev-next clearfix">
+    
+    <a class="hide pull-left">◀</a>
+    
+    
+    <a class="show pull-right" href="/2026/07/17/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84JavaWeb%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2/" title="从零开始的JavaWeb应用部署">
+      ▶
+    </a>
+    
+  </div>
+
+</div>
+
+<!-- ── 将侧边栏与正文内容对齐 ── -->
+<script>
+(function() {
+  var sidebar = document.querySelector('.post-sidebar');
+  var articleContent = document.querySelector('.article-content');
+  if (sidebar && articleContent) {
+    var top = articleContent.getBoundingClientRect().top + window.scrollY;
+    sidebar.style.top = top + 'px';
+  }
+})();
+</script>
+
+<!-- ── Giscus 评论区 ── -->
+
+<div class="fexo-comments comments-post">
+  <section class="giscus-comments">
+    <script src="https://giscus.app/client.js"
+      data-repo="holycandle/holycandle.github.io"
+      data-repo-id="R_kgDOTGE5Gg"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOTGE5Gs4C_8dE"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="preferred_color_scheme"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+</div>
+
+
+<!-- ── TOC scroll-spy ── -->
+<script>
+(function() {
+  var toc = document.getElementById('toc');
+  if (!toc) return;
+
+  var tocTopOrigin = toc.getBoundingClientRect().top + window.scrollY;
+  var tocLinks = toc.querySelectorAll('.toc-link');
+  var headings = [];
+  tocLinks.forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      var el = document.getElementById(href.slice(1));
+      if (el) headings.push({ el: el, link: link });
+    }
+  });
+  if (!headings.length) return;
+
+  function onScroll() {
+    // Fix/unfix TOC
+    if (window.scrollY > tocTopOrigin) {
+      toc.classList.add('fixed');
+    } else {
+      toc.classList.remove('fixed');
+    }
+
+    // Active heading detection
+    var active = null;
+    for (var i = 0; i < headings.length; i++) {
+      var top = headings[i].el.getBoundingClientRect().top;
+      if (top < 120) {
+        active = headings[i];
+      } else {
+        break;
+      }
+    }
+    if (!active && headings.length) active = headings[0];
+
+    tocLinks.forEach(function(l) { l.classList.remove('active'); });
+    if (active) active.link.classList.add('active');
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+<!-- ── 回到顶部 ── -->
+<a id="backTop" class="back-top show" title="回到顶部">
+  ▲
+</a>
+
+
+  <!-- Mobile modal nav -->
+  <div class="modal" id="modal">
+    <span id="cover" class="cover hide"></span>
+    <div id="modal-dialog" class="modal-dialog hide-dialog">
+      <div class="modal-header">
+        <span id="close" class="btn-close">关闭</span>
+      </div>
+      <hr>
+      <div class="modal-body">
+        <ul class="list-toolbox">
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives" >
+              Blog
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories" >
+              分类
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags" >
+              标签
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about" >
+              关于
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
+
+</body>
+</html>

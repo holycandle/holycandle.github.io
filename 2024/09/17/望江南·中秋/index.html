@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>望江南·中秋 | Horizon &amp; Jasmine</title>
+
+  
+  
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="望江南·中秋">
+  <meta property="og:url" content="https://holycandle.github.io/2024/09/17/%E6%9C%9B%E6%B1%9F%E5%8D%97%C2%B7%E4%B8%AD%E7%A7%8B/">
+  <meta property="og:site_name" content="Horizon &amp; Jasmine">
+  
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕯️</text></svg>">
+
+  <!-- Fonts: LXGW WenKai via jsDelivr (accessible in China), Calligraffitti via Google Fonts -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/personal.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="post-page">
+
+  
+
+<!-- ── 移动端底部导航按钮 ── -->
+<span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+
+<!-- ── 右侧边栏：盒子导航 + 文章目录 ── -->
+<aside class="post-sidebar">
+  <div class="toolbox post-toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down">▾</i>
+      <span class="icon-home-text"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
+    </a>
+    <ul class="list-toolbox">
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/archives" >
+          Blog
+        </a>
+      </li>
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/categories" >
+          分类
+        </a>
+      </li>
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/tags" >
+          标签
+        </a>
+      </li>
+      
+      <li class="item-toolbox">
+        <a class="CIRCLE" href="/about" >
+          关于
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+  
+</aside>
+
+<!-- ── 文章内容区 ── -->
+
+<!-- ═══════════════════════════════════════════
+   TOC: 将 Hexo 扁平 TOC 重建为可折叠树
+   ═══════════════════════════════════════════ -->
+<script>
+(function() {
+  var toc = document.getElementById('toc');
+  if (!toc) return;
+
+  var flatOl = toc.querySelector('ol.toc');
+  if (!flatOl) return;
+
+  // 1. 解析扁平 TOC，构建层级树
+  var flatItems = Array.from(flatOl.querySelectorAll('li.toc-item'));
+  if (!flatItems.length) return;
+
+  function getLevel(li) {
+    var match = (li.className || '').match(/toc-level-(\d+)/);
+    return match ? parseInt(match[1], 10) : 2;
+  }
+
+  // 构建树节点 { level, link, text, children }
+  var root = { level: 1, children: [] };
+  var stack = [root];  // 祖先链，stack[stack.length-1] 是当前父节点
+
+  flatItems.forEach(function(li) {
+    var level = getLevel(li);
+    var link = li.querySelector('a.toc-link');
+    var href = link ? link.getAttribute('href') : '';
+    var text = link ? (link.querySelector('.toc-text') ? link.querySelector('.toc-text').textContent : link.textContent) : '';
+
+    var node = { level: level, href: href, text: text, children: [] };
+
+    // 找到父节点：向上找 stack 中 level < node.level 的最近节点
+    while (stack.length > 1 && stack[stack.length - 1].level >= level) {
+      stack.pop();
+    }
+    var parent = stack[stack.length - 1];
+    parent.children.push(node);
+    stack.push(node);
+  });
+
+  // 2. 从树构建 DOM
+  function buildOl(children, parentLevel) {
+    if (!children.length) return null;
+    var ol = document.createElement('ol');
+    ol.className = 'toc-children';
+    ol.style.listStyle = 'none';
+    ol.style.paddingLeft = '0';
+    children.forEach(function(node) {
+      var li = document.createElement('li');
+      li.className = 'toc-item toc-level-' + node.level;
+
+      var inner = document.createElement('div');
+      inner.className = 'toc-item-inner';
+
+      var hasChildren = node.children.length > 0;
+
+      // Toggle 按钮（仅对有子项的节点）
+      if (hasChildren) {
+        var toggle = document.createElement('span');
+        toggle.className = 'toc-toggle';
+        toggle.textContent = '▾';
+        toggle.setAttribute('aria-expanded', 'true');
+        inner.appendChild(toggle);
+      } else {
+        // 占位，保持对齐
+        var spacer = document.createElement('span');
+        spacer.className = 'toc-toggle';
+        spacer.style.cssText = 'visibility:hidden;';
+        inner.appendChild(spacer);
+      }
+
+      var a = document.createElement('a');
+      a.className = 'toc-link';
+      a.href = node.href;
+      a.textContent = node.text;
+      inner.appendChild(a);
+      li.appendChild(inner);
+
+      // 递归构建子级
+      var childOl = buildOl(node.children, node.level);
+      if (childOl) {
+        li.appendChild(childOl);
+      }
+
+      ol.appendChild(li);
+    });
+    return ol;
+  }
+
+  var newOl = buildOl(root.children, 1);
+
+  // 3. 替换扁平 TOC
+  if (newOl) {
+    newOl.classList.add('toc');
+    // 根 ol 不需要 toc-children 的 overflow:hidden，否则会裁剪内容
+    newOl.classList.remove('toc-children');
+    newOl.style.listStyle = 'none';
+    newOl.style.paddingLeft = '0';
+    flatOl.parentNode.replaceChild(newOl, flatOl);
+
+    // 辅助：向上更新所有祖先 ol.toc-children 的 max-height
+    function updateAncestorHeights(childOl) {
+      childOl.offsetHeight; // 强制子级完成布局
+      var parentLi = childOl.closest('li.toc-item');
+      while (parentLi) {
+        var ancestorOl = parentLi.closest('ol.toc-children');
+        if (!ancestorOl || ancestorOl === newOl) break;
+        if (!ancestorOl.classList.contains('collapsed')) {
+          ancestorOl.style.maxHeight = ancestorOl.scrollHeight + 'px';
+        }
+        parentLi = ancestorOl.closest('li.toc-item');
+      }
+    }
+
+    // 4. 绑定折叠事件
+    newOl.addEventListener('click', function(e) {
+      var toggle = e.target.closest('.toc-toggle');
+      if (!toggle) return;
+      var li = toggle.closest('.toc-item');
+      if (!li) return;
+      var childOl = li.querySelector(':scope > ol.toc-children');
+      if (!childOl) return;
+
+      var isCollapsed = childOl.classList.contains('collapsed');
+      if (isCollapsed) {
+        // ── 展开 ──
+        // 优先使用折叠时保存的高度；否则临时解除约束后测量
+        var targetH = parseFloat(childOl.dataset.expandedH);
+        if (!targetH) {
+          childOl.classList.remove('collapsed');
+          childOl.style.maxHeight = 'none';
+          childOl.style.overflow = 'visible';
+          targetH = childOl.scrollHeight;
+          childOl.classList.add('collapsed');
+          childOl.style.overflow = '';
+        }
+        childOl.classList.remove('collapsed');
+        childOl.style.maxHeight = targetH + 'px';
+        childOl.style.overflow = '';
+        updateAncestorHeights(childOl);
+        toggle.classList.remove('collapsed');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.textContent = '▾';
+      } else {
+        // ── 折叠 ──
+        var expandedH = childOl.scrollHeight;
+        childOl.dataset.expandedH = expandedH;
+        childOl.style.maxHeight = expandedH + 'px';
+        childOl.offsetHeight; // 锁定过渡起点
+        childOl.classList.add('collapsed');
+        // 不设 inline max-height:0，由 CSS .collapsed !important 接管
+        updateAncestorHeights(childOl);
+        toggle.classList.add('collapsed');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = '▸';
+      }
+    });
+
+    // 初始化：所有展开
+    var allChildren = newOl.querySelectorAll('ol.toc-children');
+    allChildren.forEach(function(ol) {
+      ol.style.maxHeight = ol.scrollHeight + 'px';
+    });
+  }
+})();
+</script>
+<div class="content content-post CENTER">
+  <article id="post-望江南·中秋" class="article" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="article-header">
+      <h1 class="post-title">望江南·中秋</h1>
+
+      <div class="article-meta">
+        <span class="meta-item">
+          <i class="meta-icon">&#x1F4C5;</i>
+          <span>2024.09.17</span>
+        </span>
+
+        
+        
+        <span class="meta-sep">·</span>
+        <span class="meta-item">
+          <i class="meta-icon">&#x270D;</i>
+          <span>okiso</span>
+        </span>
+        
+
+        
+        <span class="meta-sep">·</span>
+        <span class="meta-item">
+          <i class="meta-icon">&#x1F4C2;</i>
+          
+          <a class="article-category-link" href="/categories/#%E8%AF%97%E6%AD%8C">诗歌</a>
+          
+        </span>
+        
+      </div>
+
+      
+      <div class="article-tags">
+        
+        <a class="article-tag" href="/tags/#%E4%B9%90%E6%B8%85">乐清</a>
+        
+        <a class="article-tag" href="/tags/#%E8%AF%8D">词</a>
+        
+        <a class="article-tag" href="/tags/#%E4%B8%AD%E7%A7%8B">中秋</a>
+        
+      </div>
+      
+    </header>
+
+    <div class="article-content">
+      <p>金秋半，拭玉镜枝头。<br>焘碧霄烟斜若隐，昏黄月止立云洲。<br>辉落渐清幽。</p>
+<p>无意料，正舞象年悠。<br>莫醉南柯堪自弃，且承新火斗千周。<br>心系翌年游。</p>
+
+    </div>
+
+  </article>
+
+  <!-- ── 上一篇 / 下一篇 ── -->
+  <div class="box-prev-next clearfix">
+    
+    <a class="show pull-left" href="/2025/10/10/%E4%B8%9C%E6%96%B9%E4%B8%8D%E8%B4%A5%E4%B8%BA%E4%BB%80%E4%B9%88%E2%80%9C%E4%B8%8D%E8%B4%A5%E2%80%9D/" title="东方不败为什么“不败”">
+      ◀
+    </a>
+    
+    
+    <a class="show pull-right" href="/2024/08/11/%E5%86%8D%E5%88%AB%E5%90%9B/" title="再别君">
+      ▶
+    </a>
+    
+  </div>
+
+</div>
+
+<!-- ── 将侧边栏与正文内容对齐 ── -->
+<script>
+(function() {
+  var sidebar = document.querySelector('.post-sidebar');
+  var articleContent = document.querySelector('.article-content');
+  if (sidebar && articleContent) {
+    var top = articleContent.getBoundingClientRect().top + window.scrollY;
+    sidebar.style.top = top + 'px';
+  }
+})();
+</script>
+
+<!-- ── Giscus 评论区 ── -->
+
+<div class="fexo-comments comments-post">
+  <section class="giscus-comments">
+    <script src="https://giscus.app/client.js"
+      data-repo="holycandle/holycandle.github.io"
+      data-repo-id="R_kgDOTGE5Gg"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOTGE5Gs4C_8dE"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="preferred_color_scheme"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+</div>
+
+
+<!-- ── TOC scroll-spy ── -->
+<script>
+(function() {
+  var toc = document.getElementById('toc');
+  if (!toc) return;
+
+  var tocTopOrigin = toc.getBoundingClientRect().top + window.scrollY;
+  var tocLinks = toc.querySelectorAll('.toc-link');
+  var headings = [];
+  tocLinks.forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      var el = document.getElementById(href.slice(1));
+      if (el) headings.push({ el: el, link: link });
+    }
+  });
+  if (!headings.length) return;
+
+  function onScroll() {
+    // Fix/unfix TOC
+    if (window.scrollY > tocTopOrigin) {
+      toc.classList.add('fixed');
+    } else {
+      toc.classList.remove('fixed');
+    }
+
+    // Active heading detection
+    var active = null;
+    for (var i = 0; i < headings.length; i++) {
+      var top = headings[i].el.getBoundingClientRect().top;
+      if (top < 120) {
+        active = headings[i];
+      } else {
+        break;
+      }
+    }
+    if (!active && headings.length) active = headings[0];
+
+    tocLinks.forEach(function(l) { l.classList.remove('active'); });
+    if (active) active.link.classList.add('active');
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+<!-- ── 回到顶部 ── -->
+<a id="backTop" class="back-top show" title="回到顶部">
+  ▲
+</a>
+
+
+  <!-- Mobile modal nav -->
+  <div class="modal" id="modal">
+    <span id="cover" class="cover hide"></span>
+    <div id="modal-dialog" class="modal-dialog hide-dialog">
+      <div class="modal-header">
+        <span id="close" class="btn-close">关闭</span>
+      </div>
+      <hr>
+      <div class="modal-body">
+        <ul class="list-toolbox">
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives" >
+              Blog
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories" >
+              分类
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags" >
+              标签
+            </a>
+          </li>
+          
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about" >
+              关于
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
+
+</body>
+</html>
